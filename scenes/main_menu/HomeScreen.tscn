@@ -1,0 +1,100 @@
+[gd_scene load_steps=11 format=3 uid="uid://u5rumopmocc1"]
+
+[ext_resource type="Script" uid="uid://bjk3ylfms6xkq" path="res://scripts/home_screen.gd" id="1_5g782"]
+[ext_resource type="Texture2D" uid="uid://bwwftlg6xs3ui" path="res://assets/sprites/ui/bg_way.jpg" id="1_leljk"]
+[ext_resource type="Texture2D" uid="uid://bvcglnqnnf4qd" path="res://assets/sprites/objects/tree.png" id="2_2v0cc"]
+[ext_resource type="Texture2D" uid="uid://cyhooxcsuihsf" path="res://assets/sprites/ui/logo.png" id="2_e6b7l"]
+[ext_resource type="Texture2D" uid="uid://b0xl5acpialra" path="res://assets/sprites/ui/button_idle.png" id="3_sqeow"]
+[ext_resource type="Texture2D" uid="uid://b466hddxqoumh" path="res://assets/sprites/ui/button_hover.png" id="4_ur1ow"]
+[ext_resource type="Texture2D" uid="uid://dg6vjn0a257ix" path="res://assets/sprites/character/kang_gas.png" id="5_n0527"]
+[ext_resource type="Texture2D" uid="uid://da2md4klhe6fl" path="res://assets/sprites/ui/ui_hud_elements.png" id="6_2v0cc"]
+[ext_resource type="Texture2D" uid="uid://qqvk6o4cpp1v" path="res://assets/sprites/objects/house_yellow.png" id="8_5g782"]
+[ext_resource type="Texture2D" uid="uid://bm242xmuc7rxh" path="res://assets/sprites/objects/package.png" id="9_5aqt1"]
+
+[node name="HomeScreen" type="CanvasLayer"]
+script = ExtResource("1_5g782")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_leljk")
+
+[node name="tree2" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 239.00002
+offset_right = 821.0
+offset_bottom = 917.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_2v0cc")
+
+[node name="tree" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = -113.999985
+offset_top = 69.0
+offset_right = 1149.1991
+offset_bottom = 1229.5
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_2v0cc")
+
+[node name="TextureRect2" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 355.0
+offset_top = -117.0
+offset_right = 855.0
+offset_bottom = 383.0
+texture = ExtResource("2_e6b7l")
+
+[node name="TextureRect3" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 146.0
+offset_right = 860.0
+offset_bottom = 646.0
+texture = ExtResource("5_n0527")
+
+[node name="TextureRect4" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 929.0
+offset_top = 126.99999
+offset_right = 1953.0
+offset_bottom = 1151.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("8_5g782")
+
+[node name="TextureRect5" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 414.00003
+offset_top = 428.0
+offset_right = 1438.0
+offset_bottom = 1452.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("9_5aqt1")
+
+[node name="Button" type="Button" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 227.0
+offset_top = 12.0
+offset_right = 824.0
+offset_bottom = 520.0
+text = "GAS KANG!"
+icon = ExtResource("6_2v0cc")
+
+[node name="TextureButton" type="TextureButton" parent="Control"]
+layout_mode = 0
+offset_left = 388.0
+offset_top = 524.0
+offset_right = 1239.0
+offset_bottom = 797.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_sqeow")
+texture_pressed = ExtResource("4_ur1ow")
+stretch_mode = 4

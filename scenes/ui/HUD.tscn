@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://g7n14vii3wnj"]
+
+[ext_resource type="Script" uid="uid://ib80jenffhhi" path="res://scripts/hud.gd" id="1_kw0id"]
+[ext_resource type="FontFile" uid="uid://rwsfytnkrlul" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="2_atyv1"]
+
+[node name="Hud" type="CanvasLayer" groups=["hud"]]
+script = ExtResource("1_kw0id")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.73333335)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 6
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_atyv1")
+theme_override_font_sizes/font_size = 40
+
+[node name="TargetLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9106684, 0.8462393, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.09411765, 0.09411765, 0.09411765, 0.63529414)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_atyv1")
+theme_override_font_sizes/font_size = 40

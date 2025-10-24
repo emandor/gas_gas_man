@@ -1,0 +1,36 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+.export/
+.import/
+mono/
+
+# Godot editor-generated
+*.import
+*.translation
+*.gen.*
+
+# System-specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Build artifacts
+bin/
+build/
+dist/
+
+# Godot C# (jika pakai Mono/C#)
+*.csproj
+*.sln
+*.user
+*.vs/
+.vscode/
+
+# Godot cache
+.cache/

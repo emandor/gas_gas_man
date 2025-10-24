@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://c4xp18lfo2dmm"]
+
+[node name="ThrowPackage" type="RigidBody2D"]

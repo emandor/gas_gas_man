@@ -1,0 +1,72 @@
+[gd_scene load_steps=13 format=3 uid="uid://ba8qx38omufk3"]
+
+[ext_resource type="Script" uid="uid://boi3s4kueiby7" path="res://scripts/game.gd" id="1_q0c2a"]
+[ext_resource type="PackedScene" uid="uid://u5rumopmocc1" path="res://scenes/main_menu/HomeScreen.tscn" id="2_hqrlp"]
+[ext_resource type="PackedScene" uid="uid://ka3uaku6vtcp" path="res://scenes/player/PlayerMotor.tscn" id="4_wlgyn"]
+[ext_resource type="PackedScene" uid="uid://cusqabh73qx4x" path="res://scenes/environment/Background.tscn" id="5_hmsq1"]
+[ext_resource type="Script" uid="uid://bhpx2d3ihp5u" path="res://scripts/power_bar.gd" id="7_nxjv3"]
+[ext_resource type="Script" uid="uid://i22qtk8l6vds" path="res://scripts/tree_spawner.gd" id="8_ee3lx"]
+[ext_resource type="Texture2D" uid="uid://cwpivmuox8duw" path="res://assets/sprites/objects/progress.png" id="8_hcw8b"]
+[ext_resource type="PackedScene" uid="uid://g7n14vii3wnj" path="res://scenes/ui/HUD.tscn" id="9_hcw8b"]
+[ext_resource type="Script" uid="uid://b3akipxwmt0h3" path="res://scripts/house_spawner.gd" id="10_3wwbv"]
+[ext_resource type="PackedScene" uid="uid://sroxik10fihv" path="res://scenes/ui/MenuControl.tscn" id="10_qjwcd"]
+
+[sub_resource type="Theme" id="Theme_nxjv3"]
+default_base_scale = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxjv3"]
+size = Vector2(1625, 55)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_q0c2a")
+
+[node name="TreeSpawner" type="Timer" parent="."]
+script = ExtResource("8_ee3lx")
+
+[node name="PowerBar" type="CanvasLayer" parent="."]
+script = ExtResource("7_nxjv3")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PowerBar"]
+z_index = 1
+layout_direction = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -131.0
+offset_right = 1183.0
+offset_bottom = -83.0
+grow_vertical = 0
+size_flags_stretch_ratio = 0.0
+tooltip_text = "testsets"
+theme = SubResource("Theme_nxjv3")
+value = 100.0
+texture_progress = ExtResource("8_hcw8b")
+texture_progress_offset = Vector2(20, 60)
+
+[node name="PlayerMotor" parent="." instance=ExtResource("4_wlgyn")]
+z_index = 3
+position = Vector2(172, 519)
+
+[node name="Background" parent="." instance=ExtResource("5_hmsq1")]
+position = Vector2(-2, -1)
+
+[node name="HomeScreen" parent="." instance=ExtResource("2_hqrlp")]
+
+[node name="HouseSpawner" type="Timer" parent="."]
+script = ExtResource("10_3wwbv")
+player_path = NodePath("../PlayerMotor")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(643, 359)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(172, 519)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(975, 57)
+shape = SubResource("RectangleShape2D_nxjv3")
+
+[node name="HUD" parent="." instance=ExtResource("9_hcw8b")]
+
+[node name="MenuControl" parent="." instance=ExtResource("10_qjwcd")]

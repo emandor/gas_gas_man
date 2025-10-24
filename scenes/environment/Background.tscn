@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cusqabh73qx4x"]
+
+[ext_resource type="Script" uid="uid://cn2m8hednws74" path="res://scripts/background.gd" id="1_ll2vk"]
+[ext_resource type="Texture2D" uid="uid://bwwftlg6xs3ui" path="res://assets/sprites/ui/bg_way.jpg" id="2_ll2vk"]
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_ll2vk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+scale = Vector2(1.0054687, 1)
+texture = ExtResource("2_ll2vk")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(1277.0164, 0)
+scale = Vector2(1.0054687, 1)
+texture = ExtResource("2_ll2vk")
+centered = false
