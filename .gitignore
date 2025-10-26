@@ -1,6 +1,15 @@
 # Godot 4+ specific ignores
 .godot/
-/android/
+
+# Godot export Android template
+android/.gradle/
+android/build/
+android/app/build/
+android/app/.cxx/
+android/.externalNativeBuild/
+android/app/.externalNativeBuild/
+android/local.properties
+android/caches/
 
 .export/
 .import/
