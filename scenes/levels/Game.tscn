@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ba8qx38omufk3"]
+[gd_scene load_steps=22 format=3 uid="uid://ba8qx38omufk3"]
 
 [ext_resource type="Script" uid="uid://boi3s4kueiby7" path="res://scripts/game.gd" id="1_q0c2a"]
 [ext_resource type="PackedScene" uid="uid://u5rumopmocc1" path="res://scenes/main_menu/HomeScreen.tscn" id="2_hqrlp"]
@@ -7,9 +7,18 @@
 [ext_resource type="Script" uid="uid://bhpx2d3ihp5u" path="res://scripts/power_bar.gd" id="7_nxjv3"]
 [ext_resource type="Script" uid="uid://i22qtk8l6vds" path="res://scripts/tree_spawner.gd" id="8_ee3lx"]
 [ext_resource type="Texture2D" uid="uid://cwpivmuox8duw" path="res://assets/sprites/objects/progress.png" id="8_hcw8b"]
+[ext_resource type="Script" uid="uid://dhys3lt0skv2y" path="res://scripts/ground.gd" id="9_7vga6"]
 [ext_resource type="PackedScene" uid="uid://g7n14vii3wnj" path="res://scenes/ui/HUD.tscn" id="9_hcw8b"]
 [ext_resource type="Script" uid="uid://b3akipxwmt0h3" path="res://scripts/house_spawner.gd" id="10_3wwbv"]
 [ext_resource type="PackedScene" uid="uid://sroxik10fihv" path="res://scenes/ui/MenuControl.tscn" id="10_qjwcd"]
+[ext_resource type="AudioStream" uid="uid://ihvstj23hv7d" path="res://assets/sfx/bgm.mp3" id="11_qjwcd"]
+[ext_resource type="Script" uid="uid://dada68kgv47vd" path="res://scripts/bgm_player.gd" id="12_tgnlw"]
+[ext_resource type="Texture2D" uid="uid://dd6uh2vjmwr12" path="res://assets/sprites/ui/board_result.png" id="15_4gy8a"]
+[ext_resource type="Script" uid="uid://1osghbk6ka8c" path="res://scripts/result_board.gd" id="15_fqm1f"]
+[ext_resource type="Texture2D" uid="uid://drtnr0inyi6gw" path="res://assets/sprites/ui/ui_button_main_menu.png" id="17_ddikc"]
+[ext_resource type="FontFile" uid="uid://rwsfytnkrlul" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="18_g8mpy"]
+[ext_resource type="AudioStream" uid="uid://b026fu0rxkob2" path="res://assets/sfx/button_click.wav" id="18_hascq"]
+[ext_resource type="PackedScene" uid="uid://de1lr3x2ttemk" path="res://scenes/environment/FullBackground.tscn" id="19_hascq"]
 
 [sub_resource type="Theme" id="Theme_nxjv3"]
 default_base_scale = 2.0
@@ -62,6 +71,7 @@ position = Vector2(643, 359)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(172, 519)
+script = ExtResource("9_7vga6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 position = Vector2(975, 57)
@@ -70,3 +80,80 @@ shape = SubResource("RectangleShape2D_nxjv3")
 [node name="HUD" parent="." instance=ExtResource("9_hcw8b")]
 
 [node name="MenuControl" parent="." instance=ExtResource("10_qjwcd")]
+
+[node name="BGMPlayer" type="Node2D" parent="."]
+script = ExtResource("12_tgnlw")
+
+[node name="BGMPlayer_Sound" type="AudioStreamPlayer" parent="BGMPlayer"]
+stream = ExtResource("11_qjwcd")
+autoplay = true
+parameters/looping = true
+
+[node name="ResultBoard" type="Control" parent="."]
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_right = 444.0
+offset_bottom = 444.0
+script = ExtResource("15_fqm1f")
+
+[node name="BoardSprite" type="TextureRect" parent="ResultBoard"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -273.0
+offset_right = 850.69995
+offset_bottom = 365.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_4gy8a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResultBoard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.624
+anchor_bottom = 0.75000006
+offset_left = 512.0
+offset_top = 219.0
+offset_right = 497.944
+offset_bottom = 146.99997
+scale = Vector2(1.1063184, 1.3940343)
+
+[node name="LabelAccuration" type="Label" parent="ResultBoard/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42955482, 0.4295547, 0, 1)
+theme_override_fonts/font = ExtResource("18_g8mpy")
+theme_override_font_sizes/font_size = 30
+
+[node name="LabelScore" type="Label" parent="ResultBoard/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5220287, 0.67851543, 0, 1)
+theme_override_fonts/font = ExtResource("18_g8mpy")
+theme_override_font_sizes/font_size = 30
+
+[node name="LabelTime" type="Label" parent="ResultBoard/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.25384274, 0.25384274, 0.25384274, 1)
+theme_override_colors/font_shadow_color = Color(0.47592735, 0.47592735, 0.4759273, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("18_g8mpy")
+theme_override_font_sizes/font_size = 30
+
+[node name="ButtonOK" type="TextureButton" parent="ResultBoard"]
+z_index = 2
+layout_mode = 0
+offset_left = 487.99997
+offset_top = 509.0
+offset_right = 1323.0
+offset_bottom = 808.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("17_ddikc")
+
+[node name="ButtonOkClicked" type="AudioStreamPlayer" parent="ResultBoard"]
+stream = ExtResource("18_hascq")
+
+[node name="FullBackground" parent="." instance=ExtResource("19_hascq")]

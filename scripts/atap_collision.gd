@@ -1,4 +1,5 @@
 extends Area2D
+
 signal package_hit(success: bool)
 
 func _ready():

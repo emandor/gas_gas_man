@@ -4,12 +4,13 @@ extends CharacterBody2D
 
 @onready var power_bar = $"../PowerBar"
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var throw_sound = $AudioStreamPlayer2D
 
 var can_throw := true
 var is_charging := false
 var state := "idle"
 var current_palet: Area2D = null
-
+var current_atap: Area2D = null
 
 func _ready():
 	# Pastikan package_scene terload
@@ -28,31 +29,32 @@ func _ready():
 		push_warning("⚠️ PowerBar tidak ditemukan oleh PlayerMotor!")
 	
 	anim.play("idle")
+	
+func _charging():
+	is_charging = true
+	power_bar.start_charge()
+	anim.play("throw")
+
+func throwing():
+	is_charging = false
+	can_throw = false
+	power_bar.stop_charge()
+	anim.play("throwing")
+	
 
 func _input(event):
-	# --- handle tap di layar (khusus mobile) ---
 	if event is InputEventScreenTouch:
 		if event.pressed and can_throw:
-			is_charging = true
-			power_bar.start_charge()
-			anim.play("throw")
+			_charging()
+			
 		elif not event.pressed and is_charging:
-			is_charging = false
-			can_throw = false
-			power_bar.stop_charge()
-			anim.play("throwing")
+			throwing()
 
-	# tetap dukung keyboard (space) juga
 	elif event.is_action_pressed("throw_package") and can_throw:
-		is_charging = true
-		power_bar.start_charge()
-		anim.play("throw")
+		_charging()
 
 	elif event.is_action_released("throw_package") and is_charging:
-		is_charging = false
-		can_throw = false
-		power_bar.stop_charge()
-		anim.play("throwing")
+		throwing()
 
 func _physics_process(delta):
 	
@@ -66,6 +68,7 @@ func _physics_process(delta):
 		can_throw = false
 		power_bar.stop_charge()
 		anim.play("throwing")
+		
 
 
 func _on_throw_power_ready(power: float):
@@ -84,13 +87,22 @@ func throw_package(power: float):
 
 	get_parent().add_child(pkg)
 	pkg.global_position = global_position + Vector2(60, -25)
+	
+	var hud = get_tree().get_first_node_in_group("hud")
+	if hud:
+		hud.add_thrown()
 
 	# Arah lempar ke kanan
 	pkg.throw_package(power, 1)
+	throw_sound.play()
+	
 
 	# Jika ada palet aktif, kirim ke package
 	if current_palet and pkg.has_method("set_target"):
 		pkg.set_target(current_palet)
+	
+	if current_atap and pkg.has_method("set_target"):
+		pkg.set_target(current_atap)
 
 	await get_tree().create_timer(0.4).timeout
 	can_throw = true
@@ -102,6 +114,12 @@ func set_palet_target(palet: Area2D):
 	current_palet = palet
 	if current_palet and not current_palet.package_hit.is_connected(_on_package_hit):
 		current_palet.package_hit.connect(_on_package_hit)
+		
+# Dipanggil dari Game.gd / HouseSpawner saat rumah spawn
+func atap_target(atap: Area2D):
+	current_atap = atap
+	if current_atap and not current_atap.package_hit.is_connected(_on_package_hit):
+		current_atap.package_hit.connect(_on_package_hit)
 
 
 func _on_package_hit(success: bool):

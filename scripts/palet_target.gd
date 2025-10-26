@@ -3,7 +3,7 @@ extends Area2D
 ## Kirim ke PlayerMotor saat paket berhasil stay di atas palet
 signal package_hit(success: bool)
 
-@export var required_stay_time := 0.5   # berapa lama paket harus diam di atas palet
+@export var required_stay_time := 1.5   # berapa lama paket harus diam di atas palet
 @export var debug_color := Color(0, 1, 0, 0.25)
 
 var _overlapping_package: RigidBody2D = null
@@ -41,4 +41,4 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	if body == _overlapping_package:
 		print("📦 Paket keluar dari area palet")
-		_overlapping_package = null
+		_overlapping_package = body

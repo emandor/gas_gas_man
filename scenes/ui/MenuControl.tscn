@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://sroxik10fihv"]
+[gd_scene load_steps=5 format=3 uid="uid://sroxik10fihv"]
 
 [ext_resource type="Texture2D" uid="uid://dkmncscxi5bws" path="res://assets/sprites/ui/sound.png" id="1_87vju"]
 [ext_resource type="Script" uid="uid://cj2rf3h8b450u" path="res://scripts/menu_hud.gd" id="1_jljst"]
 [ext_resource type="Texture2D" uid="uid://cl1p83hsltqi5" path="res://assets/sprites/ui/close.png" id="2_jljst"]
+[ext_resource type="AudioStream" uid="uid://b026fu0rxkob2" path="res://assets/sfx/button_click.wav" id="4_wyxbm"]
 
 [node name="MenuControl" type="CanvasLayer"]
 script = ExtResource("1_jljst")
@@ -24,3 +25,6 @@ texture_normal = ExtResource("1_87vju")
 [node name="ExitButton" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("2_jljst")
+
+[node name="clicked" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wyxbm")

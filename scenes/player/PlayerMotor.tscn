@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://ka3uaku6vtcp"]
+[gd_scene load_steps=64 format=3 uid="uid://ka3uaku6vtcp"]
 
 [ext_resource type="Texture2D" uid="uid://bja5sdjrg7vol" path="res://assets/sprites/character/char_throw_charge.png" id="1_8p2rf"]
 [ext_resource type="Script" uid="uid://bbkptnuv3fuhq" path="res://scripts/player.gd" id="1_tde3o"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cpd0kt7xh455u" path="res://assets/sprites/character/char_idle.png" id="3_rnxom"]
 [ext_resource type="Texture2D" uid="uid://bjpug1m8k1s3w" path="res://assets/sprites/character/char_happy.png" id="4_hhx0d"]
 [ext_resource type="Texture2D" uid="uid://dovf8ov73q2jx" path="res://assets/sprites/character/char_throwing.png" id="6_rnxom"]
+[ext_resource type="AudioStream" uid="uid://ca2la78fuvl11" path="res://assets/sfx/throw.wav" id="7_hhx0d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0ycm"]
 atlas = ExtResource("1_8p2rf")
@@ -427,9 +428,15 @@ script = ExtResource("1_tde3o")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 5
 sprite_frames = SubResource("SpriteFrames_em2t2")
-animation = &"failed"
+animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.810697
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(10, 116)
 shape = SubResource("RectangleShape2D_rnxom")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_hhx0d")
+max_distance = 9999.0
+attenuation = 1e-05

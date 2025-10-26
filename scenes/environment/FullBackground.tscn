@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://de1lr3x2ttemk"]
+
+[ext_resource type="Texture2D" uid="uid://cy6ahqk5hf3bl" path="res://assets/sprites/objects/bg_way_x.jpg" id="1_efaw3"]
+
+[node name="FullBackground" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 3
+position = Vector2(644, 360)
+texture = ExtResource("1_efaw3")
+region_enabled = true
+region_rect = Rect2(0, 0, 1580, 720)

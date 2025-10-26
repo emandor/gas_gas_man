@@ -3,15 +3,15 @@
 [ext_resource type="Script" uid="uid://dgxhifjuyp14x" path="res://scripts/package.gd" id="1_42j0i"]
 [ext_resource type="Texture2D" uid="uid://bm242xmuc7rxh" path="res://assets/sprites/objects/package.png" id="2_1aknk"]
 
-[node name="Package" type="RigidBody2D" groups=["package"]]
+[node name="Package" type="RigidBody2D" groups=["hud", "package"]]
 z_index = 4
 collision_mask = 3
 mass = 0.3
 gravity_scale = 0.41
 freeze_mode = 1
 contact_monitor = true
-linear_damp = 0.3
-angular_damp = 0.5
+linear_damp = 0.7
+angular_damp = 0.8
 script = ExtResource("1_42j0i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

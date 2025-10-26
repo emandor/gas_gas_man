@@ -14,7 +14,7 @@ centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 texture_repeat = 2
-position = Vector2(1277.0164, 0)
+position = Vector2(1276.0164, 0)
 scale = Vector2(1.0054687, 1)
 texture = ExtResource("2_ll2vk")
 centered = false

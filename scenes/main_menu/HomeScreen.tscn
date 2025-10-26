@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://u5rumopmocc1"]
+[gd_scene load_steps=12 format=3 uid="uid://u5rumopmocc1"]
 
 [ext_resource type="Script" uid="uid://bjk3ylfms6xkq" path="res://scripts/home_screen.gd" id="1_5g782"]
 [ext_resource type="Texture2D" uid="uid://bwwftlg6xs3ui" path="res://assets/sprites/ui/bg_way.jpg" id="1_leljk"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://da2md4klhe6fl" path="res://assets/sprites/ui/ui_hud_elements.png" id="6_2v0cc"]
 [ext_resource type="Texture2D" uid="uid://qqvk6o4cpp1v" path="res://assets/sprites/objects/house_yellow.png" id="8_5g782"]
 [ext_resource type="Texture2D" uid="uid://bm242xmuc7rxh" path="res://assets/sprites/objects/package.png" id="9_5aqt1"]
+[ext_resource type="AudioStream" uid="uid://b026fu0rxkob2" path="res://assets/sfx/button_click.wav" id="11_5aqt1"]
 
 [node name="HomeScreen" type="CanvasLayer"]
 script = ExtResource("1_5g782")
@@ -98,3 +99,6 @@ scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("3_sqeow")
 texture_pressed = ExtResource("4_ur1ow")
 stretch_mode = 4
+
+[node name="clicked" type="AudioStreamPlayer" parent="Control"]
+stream = ExtResource("11_5aqt1")

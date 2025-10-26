@@ -6,6 +6,7 @@ extends Node2D
 @export var max_speed := 200.0
 
 var palet: Area2D
+var atap: Area2D
 
 var speed := 200.0
 
@@ -36,6 +37,9 @@ func _ready():
 	# koneksi event palet
 	palet = $PaletTarget
 	palet.package_hit.connect(_on_package_hit)
+	
+	atap = $Atap/AtapHit
+	atap.package_hit.connect(_on_package_hit)
 
 
 func _on_package_hit(success: bool):
