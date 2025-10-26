@@ -14,14 +14,15 @@ config/name="Gas Gas Man: Delivery Rush ⚡"
 run/main_scene="uid://ba8qx38omufk3"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/image="uid://cyhooxcsuihsf"
-config/icon="uid://cyhooxcsuihsf"
+config/icon="uid://cfihrnojbvfv4"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep_width"
+window/stretch/scale_mode="integer"
 
 [input]
 
@@ -33,4 +34,5 @@ throw_package={
 
 [rendering]
 
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

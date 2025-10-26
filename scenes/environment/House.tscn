@@ -66,11 +66,12 @@ shape = SubResource("RectangleShape2D_jrfv7")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Atap/AtapShape"]
 position = Vector2(292, 4)
-polygon = PackedVector2Array(-332, -164, -265, -373, -269, -404, -240, -411, -182, -410, -36, -408, 234, -410, 251, -403, 256, -368, 317, -203, 295, -151, 231, -159, 141, -155, 47, -155, -47, -157, -142, -156, -241, -155, -322, -160)
+polygon = PackedVector2Array(-332, -164, -265, -373, -269, -404, -240, -411, -182, -410, -36, -408, -40, -380, -34, -361, -30, -342, -13, -317, 13, -264, 30, -219, 17, -189, 5, -161, -47, -157, -142, -156, -241, -155, -322, -160)
 
-[node name="AtapHit" type="Area2D" parent="Atap"]
+[node name="AtapTarget" type="Area2D" parent="Atap"]
 script = ExtResource("7_jrfv7")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Atap/AtapHit"]
-position = Vector2(223, 6)
-polygon = PackedVector2Array(-332, -164, -265, -373, -269, -404, -240, -411, -182, -410, -36, -408, 234, -410, 251, -403, 256, -368, 317, -203, 295, -151, 231, -159, 141, -155, 47, -155, -47, -157, -142, -156, -241, -155, -322, -160)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Atap/AtapTarget"]
+visible = false
+position = Vector2(225, 6)
+polygon = PackedVector2Array(-332, -164, -265, -373, -269, -404, -240, -411, -182, -410, -36, -408, 21, -407, 57, -364, 69, -281, 82, -228, 91, -198, 89, -181, 130, -139, 45, -133, -52, -132, -147, -136, -232, -144, -322, -160)

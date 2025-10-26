@@ -1,21 +1,13 @@
 shader_type canvas_item;
-render_mode unshaded, blend_mix;
 
-uniform float blur_radius = 224.0;
-
-// pakai hint_screen_texture agar kompatibel di Godot 4.5+
-uniform sampler2D screen_tex : hint_screen_texture;
+uniform float blur_amount : hint_range(-2.0, 10.0);
+uniform float mix_amount : hint_range(0.0, 1.0);
+uniform vec4 color_over : source_color;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 void fragment() {
-    vec4 sum = vec4(0.0);
-    float count = 0.0;
-
-    for (float x = -blur_radius; x <= blur_radius; x++) {
-        for (float y = -blur_radius; y <= blur_radius; y++) {
-            sum += texture(screen_tex, SCREEN_UV + vec2(x, y) * 0.002);
-            count += 1.0;
-        }
-    }
-
-    COLOR = sum / count;
+   vec4 blurred = textureLod(SCREEN_TEXTURE, SCREEN_UV, blur_amount);
+   blurred.a = 255.0;
+   vec4 fin = mix(blurred, color_over, mix_amount);
+   COLOR = fin;
 }

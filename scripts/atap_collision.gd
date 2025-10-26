@@ -7,6 +7,5 @@ func _ready():
 
 func _on_body_entered(body):
 	if body.name == "Package" or body.is_in_group("package"):
-		print("💥 Paket kena atap — gagal!")
 		emit_signal("package_hit", false)
    

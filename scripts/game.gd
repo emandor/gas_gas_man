@@ -11,16 +11,20 @@ extends Node2D
 @onready var result_btn_ok = $ResultBoard/ButtonOK
 @onready var audio_result_btn_ok = $ResultBoard/ButtonOkClicked
 @onready var result_board = $ResultBoard
+@onready var panel_blur = $PanelBlur
 
 @export var house_scene: PackedScene = preload("res://scenes/environment/House.tscn")
 
 var sound_mute = false
 
 func _ready():
+	$Confetti.visible = false
 	result_board.visible = false
+	panel_blur.visible = false
 	background.is_scrolling = false
-	game_control.visible = false
+	game_control.visible = true
 	player.set_process(false)	
+	
 	hud.visible = false
 	home_screen.start_pressed.connect(_on_start_pressed)
 	hud.game_finished.connect(_on_game_finished)
@@ -39,8 +43,10 @@ func _on_game_control(action: String):
 				bgm.stop_bgm()
 			# logika toggle audio di sini
 		"exit_game":
-			print("🚪 Exiting game...")
-			reset_game()
+			if $HomeScreen.visible:
+				get_tree().quit()
+			else:
+				reset_game()
 		_:
 			print("❓ Unknown action:", action)
 
@@ -53,9 +59,9 @@ func _on_start_pressed():
 
 func start_game():
 	background.is_scrolling = true
+	player.start_game()
 	player.set_process(true)
 	home_screen.hide()
-
 	var spawner = $HouseSpawner
 	spawner.start()
 
@@ -71,8 +77,9 @@ func reset_game():
 		if child.name == "House"  || child.name == "Tree" || child.name == "Package":
 			child.queue_free()
 	house_timer.stop()
+	player.reset_player()
 	background.is_scrolling = false
-	game_control.visible = false
+	game_control.visible = true
 	player.set_process(false)
 	home_screen.show()
 	hud.visible = false
@@ -83,29 +90,77 @@ func _on_game_finished(score, target, time, thrown_count):
 	player.set_process(false)
 	hud.visible = false
 	game_control.visible = false
+
 	var accuration = (float(score) / float(thrown_count)) * 100.0
+	if thrown_count == 0:
+		accuration = 0
 	show_result_screen(accuration, score, time, target)
 
 
 func _on_button_ok_pressed():
+	audio_result_btn_ok.play() 
+	audio_result_btn_ok.seek(0.6)
+	
 	result_board.visible = false
-	audio_result_btn_ok.play()
+	panel_blur.visible = false
 	reset_game()
 
-
-func show_result_screen(accuration: float, score: int, time: int, total_score: int):
+func show_result_screen(accuracy: float, score: int, time: int, total_score: int):
 	result_board.visible = true
-	
-	var label_accuration = $ResultBoard/VBoxContainer/LabelAccuration
+	panel_blur.visible = true
+	hud.visible = false
+	$Confetti.visible = true
+	$Confetti.restart()
+
+	var label_status = $ResultBoard/VBoxContainer/LabelStatus
+	var label_accuracy = $ResultBoard/VBoxContainer/LabelAccuration
 	var label_score = $ResultBoard/VBoxContainer/LabelScore
 	var label_time = $ResultBoard/VBoxContainer/LabelTime
 
-	# isi label
-	label_accuration.text = "Akurasi: " + str(round(accuration)) + "%"
-	label_score.text = "Skor: " + str(score) + " / " + str(total_score)
-	label_time.text = "Waktu: " + str(time) + " detik"
+	# 🔥 Tentukan Tier Meme
+	var tier_text := ""
+	var tier_color := "#868686"
 
-	# animasi lembut
-	var tween = create_tween()
+	if accuracy >= 90:
+		tier_text = "🤩🤩🤩 Kerennn Euyy 🤙🤙"
+		tier_color = "709435"
+	elif accuracy >= 75:
+		tier_text = "😎🛵 \n Gas Dikit lagii "
+		tier_color = "709435"
+	elif accuracy >= 50:
+		tier_text = "🤭🤭🤭 \n Mayann Lah... "
+	elif accuracy >= 25:
+		tier_text = "😬😬😬 \nJangan Kasih Kendor"
+	else:
+		tier_text = "🫠🫠🫠 \nLemess amaattt"
+
+	# Set teks dan broom
+	label_status.text = tier_text
+	label_status.add_theme_color_override("font_color", Color(tier_color))
+
+
+	label_accuracy.text = "Akurasi: %d%%" % round(accuracy)
+	label_score.text = "Skor: %d / %d" % [score, total_score]
+	label_time.text = "Waktu: %d detik" % time
+
+	# ✨ Reset visual sebelum animasi
 	result_board.modulate = Color(1, 1, 1, 0)
-	tween.tween_property(result_board, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_CUBIC)
+	label_status.scale = Vector2(0.6, 0.6)
+	label_accuracy.modulate = Color(1,1,1,0)
+	label_score.modulate = Color(1,1,1,0)
+	label_time.modulate = Color(1,1,1,0)
+
+	# 🎬 Animasi Fancy
+	var t = create_tween()
+
+	# Fade-in Board
+	t.tween_property(result_board, "modulate:a", 1.0, 0.5).set_trans(Tween.TRANS_CUBIC)
+
+	# Pop-in Title (Hero motion)
+	t.tween_property(label_status, "scale", Vector2(1,1), 0.35).set_trans(Tween.TRANS_BACK)
+
+	# Slight delay untuk detail (Stagger reveal)
+	t.tween_interval(0.15)
+	t.tween_property(label_accuracy, "modulate:a", 1.0, 0.25)
+	t.tween_property(label_score, "modulate:a", 1.0, 0.25)
+	t.tween_property(label_time, "modulate:a", 1.0, 0.25)

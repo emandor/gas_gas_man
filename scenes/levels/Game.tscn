@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ba8qx38omufk3"]
+[gd_scene load_steps=28 format=3 uid="uid://ba8qx38omufk3"]
 
 [ext_resource type="Script" uid="uid://boi3s4kueiby7" path="res://scripts/game.gd" id="1_q0c2a"]
 [ext_resource type="PackedScene" uid="uid://u5rumopmocc1" path="res://scenes/main_menu/HomeScreen.tscn" id="2_hqrlp"]
@@ -16,9 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://dd6uh2vjmwr12" path="res://assets/sprites/ui/board_result.png" id="15_4gy8a"]
 [ext_resource type="Script" uid="uid://1osghbk6ka8c" path="res://scripts/result_board.gd" id="15_fqm1f"]
 [ext_resource type="Texture2D" uid="uid://drtnr0inyi6gw" path="res://assets/sprites/ui/ui_button_main_menu.png" id="17_ddikc"]
+[ext_resource type="Texture2D" uid="uid://dg6vjn0a257ix" path="res://assets/sprites/character/kang_gas.png" id="17_ujfct"]
 [ext_resource type="FontFile" uid="uid://rwsfytnkrlul" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="18_g8mpy"]
 [ext_resource type="AudioStream" uid="uid://b026fu0rxkob2" path="res://assets/sfx/button_click.wav" id="18_hascq"]
 [ext_resource type="PackedScene" uid="uid://de1lr3x2ttemk" path="res://scenes/environment/FullBackground.tscn" id="19_hascq"]
+[ext_resource type="Shader" uid="uid://c53bnko1tthba" path="res://scenes/levels/Game.gdshader" id="20_x2lqn"]
+[ext_resource type="Texture2D" uid="uid://bk0ef7bia4ssq" path="res://assets/sprites/ui/confetti_white.jpg" id="22_rsvdn"]
 
 [sub_resource type="Theme" id="Theme_nxjv3"]
 default_base_scale = 2.0
@@ -26,8 +29,22 @@ default_base_scale = 2.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxjv3"]
 size = Vector2(1625, 55)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2lqn"]
+shader = ExtResource("20_x2lqn")
+shader_parameter/blur_amount = 4.5130003093675
+shader_parameter/mix_amount = 0.2530000120175
+shader_parameter/color_over = Color(0, 0, 0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x2lqn"]
+
+[sub_resource type="Gradient" id="Gradient_hjpmb"]
+offsets = PackedFloat32Array(0, 0.23947369, 0.47105262, 0.76578945, 1)
+colors = PackedColorArray(1, 0.7882353, 0.23529412, 1, 1, 0.48235294, 0.48235294, 1, 0.49411765, 0.8509804, 0.34117648, 1, 0.48235294, 0.8235294, 1, 1, 0.7764706, 0.6117647, 0.9882353, 1)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_q0c2a")
+
+[node name="FullBackground" parent="." instance=ExtResource("19_hascq")]
 
 [node name="TreeSpawner" type="Timer" parent="."]
 script = ExtResource("8_ee3lx")
@@ -66,9 +83,6 @@ position = Vector2(-2, -1)
 script = ExtResource("10_3wwbv")
 player_path = NodePath("../PlayerMotor")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(643, 359)
-
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(172, 519)
 script = ExtResource("9_7vga6")
@@ -89,6 +103,40 @@ stream = ExtResource("11_qjwcd")
 autoplay = true
 parameters/looping = true
 
+[node name="PanelBlur" type="Panel" parent="."]
+z_index = 23
+material = SubResource("ShaderMaterial_x2lqn")
+offset_left = -210.0
+offset_top = -78.0
+offset_right = 1473.0
+offset_bottom = 869.0
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="PanelBlur"]
+material = SubResource("CanvasItemMaterial_x2lqn")
+
+[node name="Confetti" type="CPUParticles2D" parent="."]
+z_index = 100
+position = Vector2(642, 312)
+emitting = false
+amount = 240
+texture = ExtResource("22_rsvdn")
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.3
+randomness = 0.4
+spread = 144.3
+gravity = Vector2(0, 700)
+initial_velocity_min = 300.0
+initial_velocity_max = 650.0
+angular_velocity_min = 400.0
+angular_velocity_max = 600.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_hjpmb")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(643, 359)
+
 [node name="ResultBoard" type="Control" parent="."]
 z_index = 100
 layout_mode = 3
@@ -97,6 +145,16 @@ offset_right = 444.0
 offset_bottom = 444.0
 script = ExtResource("15_fqm1f")
 
+[node name="TextureRect3" type="TextureRect" parent="ResultBoard"]
+layout_mode = 0
+offset_left = 681.00006
+offset_top = -95.0
+offset_right = 1181.0
+offset_bottom = 405.0
+rotation = 0.37292483
+scale = Vector2(1.1877286, 1.1345539)
+texture = ExtResource("17_ujfct")
+
 [node name="BoardSprite" type="TextureRect" parent="ResultBoard"]
 layout_mode = 1
 anchors_preset = 8
@@ -104,12 +162,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 30.0
-offset_top = -273.0
-offset_right = 850.69995
-offset_bottom = 365.0
+offset_left = 5.9999847
+offset_top = -206.0
+offset_right = 826.69995
+offset_bottom = 432.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.054953, 1.054953)
 texture = ExtResource("15_4gy8a")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ResultBoard"]
@@ -117,23 +176,41 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.624
 anchor_bottom = 0.75000006
-offset_left = 512.0
-offset_top = 219.0
-offset_right = 497.944
-offset_bottom = 146.99997
-scale = Vector2(1.1063184, 1.3940343)
+offset_left = 497.0
+offset_top = 214.00002
+offset_right = 482.944
+offset_bottom = 141.99997
+scale = Vector2(1.1805643, 1.4872061)
+
+[node name="LabelStatus" type="Label" parent="ResultBoard/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.43763727, 0.58177376, 0.20752218, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.827)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("18_g8mpy")
+theme_override_font_sizes/font_size = 37
+text = "🤩🤩🤩 Kerennn Euyy 🤙🤙"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="LabelAccuration" type="Label" parent="ResultBoard/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42955482, 0.4295547, 0, 1)
 theme_override_fonts/font = ExtResource("18_g8mpy")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 23
+text = "sadsadsad"
 
 [node name="LabelScore" type="Label" parent="ResultBoard/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5220287, 0.67851543, 0, 1)
 theme_override_fonts/font = ExtResource("18_g8mpy")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
+text = "sdasdsa"
 
 [node name="LabelTime" type="Label" parent="ResultBoard/VBoxContainer"]
 layout_mode = 2
@@ -141,19 +218,19 @@ theme_override_colors/font_color = Color(0.25384274, 0.25384274, 0.25384274, 1)
 theme_override_colors/font_shadow_color = Color(0.47592735, 0.47592735, 0.4759273, 0)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("18_g8mpy")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
+text = "sadasdasdsa"
 
 [node name="ButtonOK" type="TextureButton" parent="ResultBoard"]
 z_index = 2
 layout_mode = 0
 offset_left = 487.99997
-offset_top = 509.0
+offset_top = 549.0
 offset_right = 1323.0
-offset_bottom = 808.0
+offset_bottom = 848.0
 scale = Vector2(0.4, 0.4)
 texture_normal = ExtResource("17_ddikc")
 
 [node name="ButtonOkClicked" type="AudioStreamPlayer" parent="ResultBoard"]
 stream = ExtResource("18_hascq")
-
-[node name="FullBackground" parent="." instance=ExtResource("19_hascq")]
+volume_db = 12.304

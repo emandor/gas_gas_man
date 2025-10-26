@@ -2,12 +2,12 @@ extends Node2D
 
 @export var min_scale := 0.3
 @export var max_scale := 0.5
-@export var min_speed := 200.0
-@export var max_speed := 200.0
+@export var min_speed := 220.0
+@export var max_speed := 220.0
 
 var palet: Area2D
 
-var speed := 200.0
+var speed := 220.0
 
 func set_depth_speed(scale_factor: float):
 	speed = lerp(240.0, 90.0, scale_factor)

@@ -14,7 +14,6 @@ func _ready():
 		print("Button not found!")
 
 func _on_button_pressed():
-	print("Button clicked!")  # debug log
 	click_sound.play()
 	click_sound.seek(0.6)
 	start_pressed.emit()

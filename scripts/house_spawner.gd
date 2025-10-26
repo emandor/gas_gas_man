@@ -30,6 +30,10 @@ func spawn_house():
 	var palet = h.get_node_or_null("PaletTarget")
 	if palet:
 		player.set_palet_target(palet)
+	
+	var atap = h.get_node_or_null("Atap/AtapTarget")
+	if atap:
+		player.set_atap_target(atap)
 
 	
 	if h.has_method("set_speed"):

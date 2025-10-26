@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var segment_width : float = 2024.0
-@export var move_speed : float = 200.0
+@export var move_speed : float = 220.0
 
 @onready var camera_2d : Camera2D = get_tree().get_first_node_in_group("camera")
 

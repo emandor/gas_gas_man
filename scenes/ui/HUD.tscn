@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://g7n14vii3wnj"]
+[gd_scene load_steps=5 format=3 uid="uid://g7n14vii3wnj"]
 
 [ext_resource type="Script" uid="uid://ib80jenffhhi" path="res://scripts/hud.gd" id="1_kw0id"]
 [ext_resource type="FontFile" uid="uid://rwsfytnkrlul" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="2_atyv1"]
+[ext_resource type="Texture2D" uid="uid://bm242xmuc7rxh" path="res://assets/sprites/objects/package.png" id="2_ig75s"]
+[ext_resource type="Texture2D" uid="uid://c5jjrxcvy23lm" path="res://assets/sprites/ui/bullseye.png" id="4_4ed8p"]
 
 [node name="Hud" type="CanvasLayer" groups=["hud"]]
 script = ExtResource("1_kw0id")
@@ -16,6 +18,13 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PackageIcon" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_ig75s")
+expand_mode = 3
 
 [node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -28,7 +37,14 @@ theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 4
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("2_atyv1")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 35
+text = "dd"
+horizontal_alignment = 1
+
+[node name="BullsEyeIcon" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_4ed8p")
+expand_mode = 3
 
 [node name="TargetLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -40,7 +56,33 @@ theme_override_constants/shadow_offset_y = 3
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("2_atyv1")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 38
+text = "dd"
 
-[node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 12.999998
+offset_right = 25.0
+offset_bottom = 62.0
+grow_horizontal = 2
+scale = Vector2(1.2261755, 1.1984346)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+alignment = 1
+
+[node name="TimerLabel" type="Label" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9106684, 0.8462393, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.09411765, 0.09411765, 0.09411765, 0.63529414)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_atyv1")
+theme_override_font_sizes/font_size = 40
+text = " timer"

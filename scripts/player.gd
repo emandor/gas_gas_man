@@ -11,6 +11,18 @@ var is_charging := false
 var state := "idle"
 var current_palet: Area2D = null
 var current_atap: Area2D = null
+var game_started := false
+
+
+func start_game():
+	game_started = true
+	anim.play("idle")
+
+func reset_player():
+	game_started = false
+	is_charging = false
+	can_throw = true
+	anim.play("idle")
 
 func _ready():
 	# Pastikan package_scene terload
@@ -43,6 +55,9 @@ func throwing():
 	
 
 func _input(event):
+	if not game_started:
+		return
+
 	if event is InputEventScreenTouch:
 		if event.pressed and can_throw:
 			_charging()
@@ -57,6 +72,8 @@ func _input(event):
 		throwing()
 
 func _physics_process(delta):
+	if not game_started:
+		return
 	
 	if Input.is_action_just_pressed("throw_package") and can_throw:
 		is_charging = true
@@ -116,11 +133,13 @@ func set_palet_target(palet: Area2D):
 		current_palet.package_hit.connect(_on_package_hit)
 		
 # Dipanggil dari Game.gd / HouseSpawner saat rumah spawn
-func atap_target(atap: Area2D):
+func set_atap_target(atap: Area2D):
 	current_atap = atap
-	if current_atap and not current_atap.package_hit.is_connected(_on_package_hit):
-		current_atap.package_hit.connect(_on_package_hit)
+	if current_atap and not current_atap.package_hit.is_connected(_on_package_hit_roof):
+		current_atap.package_hit.connect(_on_package_hit_roof)
 
+func _on_package_hit_roof(success: bool):
+	anim.play("failed")
 
 func _on_package_hit(success: bool):
 	if success:

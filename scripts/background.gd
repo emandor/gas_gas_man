@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var scroll_speed: float = 200.0
+@export var scroll_speed: float = 220.0
 @export var segment_width: float = 1280.0
 @export var is_scrolling: bool = true  
 
