@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://clevsel001"]
+
+[ext_resource type="Script" uid="uid://dbg5e1tfnwfi" path="res://scripts/level_select.gd" id="1_lvsel"]
+[ext_resource type="FontFile" uid="uid://cjuiamc5xg8rt" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="2_lvsel"]
+[ext_resource type="Theme" uid="uid://cgamethemegg1" path="res://theme/GameTheme.tres" id="3_theme"]
+
+[node name="LevelSelect" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_lvsel")
+
+[node name="BG" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.078, 0.039, 0.02, 0.92)
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -280.0
+offset_right = 540.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="LabelTitle" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.957, 0.659, 0.145, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_lvsel")
+theme_override_font_sizes/font_size = 56
+text = "PILIH LEVEL"
+horizontal_alignment = 1
+
+[node name="LevelGrid" type="GridContainer" parent="Panel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 5
+
+[node name="ButtonClose" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "✕ KEMBALI"

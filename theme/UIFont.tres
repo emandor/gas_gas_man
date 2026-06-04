@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=3 format=3 uid="uid://duifontgg0001"]
+
+[ext_resource type="FontFile" uid="uid://cjuiamc5xg8rt" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="1_base"]
+[ext_resource type="FontFile" uid="uid://kfkm3u6bx7h0" path="res://assets/fonts/TwemojiMozilla.ttf" id="2_emoji"]
+
+[resource]
+base_font = ExtResource("1_base")
+fallbacks = Array[Font]([ExtResource("2_emoji")])

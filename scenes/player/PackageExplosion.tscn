@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpkgxpl001sc"]
+
+[ext_resource type="Script" uid="uid://cpkgxpl5b2wr" path="res://scripts/package_explosion.gd" id="1_pkgxpl"]
+
+[node name="PackageExplosion" type="Node2D"]
+script = ExtResource("1_pkgxpl")
+
+[node name="Burst" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+spread = 180.0
+gravity = Vector2(0, 600)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+color = Color(1, 0.85, 0, 1)
+
+[node name="Ring" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 8
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 20.0
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 250.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(1, 0.9, 0.2, 1)

@@ -4,11 +4,13 @@ extends Node2D
 @export var max_scale := 0.6
 @export var min_speed := 220.0
 @export var max_speed := 220.0
+@export var score_multiplier: float = 1.0
 
 var palet: Area2D
 var atap: Area2D
 
 var speed := 220.0
+var _speed_override := false
 
 func set_depth_speed(scale_factor: float):
 	# semakin kecil scale → lebih jauh → lebih lambat
@@ -17,7 +19,8 @@ func set_depth_speed(scale_factor: float):
 
 func set_speed(value: float):
 	speed = value
-	
+	_speed_override = true
+
 func _process(delta):
 	position.x -= speed * delta
 	if position.x < -300:
@@ -28,8 +31,9 @@ func _ready():
 	var s = randf_range(min_scale, max_scale)
 	scale = Vector2(s, s)
 
-	# kecepatan tergantung jarak (lebih kecil → lebih lambat)
-	speed = lerp(max_speed, min_speed, (s - min_scale) / (max_scale - min_scale))
+	# kecepatan tergantung jarak — only if level config hasn't set it
+	if not _speed_override:
+		speed = lerp(max_speed, min_speed, (s - min_scale) / (max_scale - min_scale))
 
 	# spawn dari kanan layar
 	global_position = Vector2(1700, randf_range(380, 400))
@@ -42,8 +46,5 @@ func _ready():
 	atap.package_hit.connect(_on_package_hit)
 
 
-func _on_package_hit(success: bool):
-	if success:
-		print("🏆 Rumah menerima paket dengan sukses!")
-	else:
-		print("💣 Paket gagal dikirim!")
+func _on_package_hit(_success: bool):
+	pass

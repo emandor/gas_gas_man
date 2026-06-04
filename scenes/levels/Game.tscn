@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ba8qx38omufk3"]
+[gd_scene format=3 uid="uid://ba8qx38omufk3"]
 
 [ext_resource type="Script" uid="uid://boi3s4kueiby7" path="res://scripts/game.gd" id="1_q0c2a"]
 [ext_resource type="PackedScene" uid="uid://u5rumopmocc1" path="res://scenes/main_menu/HomeScreen.tscn" id="2_hqrlp"]
@@ -16,12 +16,23 @@
 [ext_resource type="Texture2D" uid="uid://dd6uh2vjmwr12" path="res://assets/sprites/ui/board_result.png" id="15_4gy8a"]
 [ext_resource type="Script" uid="uid://1osghbk6ka8c" path="res://scripts/result_board.gd" id="15_fqm1f"]
 [ext_resource type="Texture2D" uid="uid://drtnr0inyi6gw" path="res://assets/sprites/ui/ui_button_main_menu.png" id="17_ddikc"]
-[ext_resource type="Texture2D" uid="uid://dg6vjn0a257ix" path="res://assets/sprites/character/kang_gas.png" id="17_ujfct"]
-[ext_resource type="FontFile" uid="uid://rwsfytnkrlul" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="18_g8mpy"]
+[ext_resource type="Texture2D" uid="uid://cvg5uro4i1nmv" path="res://assets/sprites/character/kang_gas.png" id="17_ujfct"]
+[ext_resource type="FontVariation" uid="uid://duifontgg0001" path="res://theme/UIFont.tres" id="18_g8mpy"]
 [ext_resource type="AudioStream" uid="uid://b026fu0rxkob2" path="res://assets/sfx/button_click.wav" id="18_hascq"]
+[ext_resource type="Theme" uid="uid://cgamethemegg1" path="res://theme/GameTheme.tres" id="40_theme"]
+[ext_resource type="Texture2D" uid="uid://dpbir822iif6k" path="res://assets/sprites/ui/star_full.png" id="41_starf"]
+[ext_resource type="Texture2D" uid="uid://b6litjk8u6sq6" path="res://assets/sprites/ui/star_empty.png" id="42_stare"]
+[ext_resource type="Script" path="res://scripts/aim_preview.gd" id="43_aim"]
 [ext_resource type="PackedScene" uid="uid://de1lr3x2ttemk" path="res://scenes/environment/FullBackground.tscn" id="19_hascq"]
 [ext_resource type="Shader" uid="uid://c53bnko1tthba" path="res://scenes/levels/Game.gdshader" id="20_x2lqn"]
 [ext_resource type="Texture2D" uid="uid://bk0ef7bia4ssq" path="res://assets/sprites/ui/confetti_white.jpg" id="22_rsvdn"]
+[ext_resource type="Script" uid="uid://cmshk3eaq8r1" path="res://scripts/camera_shake.gd" id="23_camshk"]
+[ext_resource type="PackedScene" uid="uid://bkfb4bsfmnqsk" path="res://scenes/environment/House.tscn" id="24_housdf"]
+[ext_resource type="PackedScene" uid="uid://chouseblue01" path="res://scenes/environment/House_Blue.tscn" id="25_housbl"]
+[ext_resource type="PackedScene" uid="uid://chouseyellow1" path="res://scenes/environment/House_Yellow.tscn" id="26_housyl"]
+[ext_resource type="PackedScene" uid="uid://clevsel001" path="res://scenes/ui/LevelSelect.tscn" id="30_lvsel"]
+[ext_resource type="PackedScene" uid="uid://csettsc001" path="res://scenes/ui/SettingsScreen.tscn" id="31_sett"]
+[ext_resource type="PackedScene" uid="uid://ctutorl001" path="res://scenes/ui/TutorialOverlay.tscn" id="32_tut"]
 
 [sub_resource type="Theme" id="Theme_nxjv3"]
 default_base_scale = 2.0
@@ -41,18 +52,18 @@ shader_parameter/color_over = Color(0, 0, 0, 1)
 offsets = PackedFloat32Array(0, 0.23947369, 0.47105262, 0.76578945, 1)
 colors = PackedColorArray(1, 0.7882353, 0.23529412, 1, 1, 0.48235294, 0.48235294, 1, 0.49411765, 0.8509804, 0.34117648, 1, 0.48235294, 0.8235294, 1, 1, 0.7764706, 0.6117647, 0.9882353, 1)
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" unique_id=2025313396]
 script = ExtResource("1_q0c2a")
 
-[node name="FullBackground" parent="." instance=ExtResource("19_hascq")]
+[node name="FullBackground" parent="." unique_id=44474605 instance=ExtResource("19_hascq")]
 
-[node name="TreeSpawner" type="Timer" parent="."]
+[node name="TreeSpawner" type="Timer" parent="." unique_id=752647513]
 script = ExtResource("8_ee3lx")
 
-[node name="PowerBar" type="CanvasLayer" parent="."]
+[node name="PowerBar" type="CanvasLayer" parent="." unique_id=311094911]
 script = ExtResource("7_nxjv3")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="PowerBar"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PowerBar" unique_id=1634304784]
 z_index = 1
 layout_direction = 2
 anchors_preset = 2
@@ -70,40 +81,41 @@ value = 100.0
 texture_progress = ExtResource("8_hcw8b")
 texture_progress_offset = Vector2(20, 60)
 
-[node name="PlayerMotor" parent="." instance=ExtResource("4_wlgyn")]
+[node name="PlayerMotor" parent="." unique_id=293072697 instance=ExtResource("4_wlgyn")]
 z_index = 3
 position = Vector2(172, 519)
 
-[node name="Background" parent="." instance=ExtResource("5_hmsq1")]
+[node name="Background" parent="." unique_id=890827176 instance=ExtResource("5_hmsq1")]
 position = Vector2(-2, -1)
 
-[node name="HomeScreen" parent="." instance=ExtResource("2_hqrlp")]
+[node name="HomeScreen" parent="." unique_id=396159240 instance=ExtResource("2_hqrlp")]
 
-[node name="HouseSpawner" type="Timer" parent="."]
+[node name="HouseSpawner" type="Timer" parent="." unique_id=1859688944]
 script = ExtResource("10_3wwbv")
+house_scenes = Array[PackedScene]([ExtResource("24_housdf"), ExtResource("25_housbl"), ExtResource("26_housyl")])
 player_path = NodePath("../PlayerMotor")
 
-[node name="Ground" type="StaticBody2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="." unique_id=206839163]
 position = Vector2(172, 519)
 script = ExtResource("9_7vga6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=1726433321]
 position = Vector2(975, 57)
 shape = SubResource("RectangleShape2D_nxjv3")
 
-[node name="HUD" parent="." instance=ExtResource("9_hcw8b")]
+[node name="HUD" parent="." unique_id=1589161719 instance=ExtResource("9_hcw8b")]
 
-[node name="MenuControl" parent="." instance=ExtResource("10_qjwcd")]
+[node name="MenuControl" parent="." unique_id=1558357650 instance=ExtResource("10_qjwcd")]
 
-[node name="BGMPlayer" type="Node2D" parent="."]
+[node name="BGMPlayer" type="Node2D" parent="." unique_id=743689941]
 script = ExtResource("12_tgnlw")
 
-[node name="BGMPlayer_Sound" type="AudioStreamPlayer" parent="BGMPlayer"]
+[node name="BGMPlayer_Sound" type="AudioStreamPlayer" parent="BGMPlayer" unique_id=1326902304]
 stream = ExtResource("11_qjwcd")
 autoplay = true
 parameters/looping = true
 
-[node name="PanelBlur" type="Panel" parent="."]
+[node name="PanelBlur" type="Panel" parent="." unique_id=242372735]
 z_index = 23
 material = SubResource("ShaderMaterial_x2lqn")
 offset_left = -210.0
@@ -111,10 +123,10 @@ offset_top = -78.0
 offset_right = 1473.0
 offset_bottom = 869.0
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="PanelBlur"]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="PanelBlur" unique_id=1840983021]
 material = SubResource("CanvasItemMaterial_x2lqn")
 
-[node name="Confetti" type="CPUParticles2D" parent="."]
+[node name="Confetti" type="CPUParticles2D" parent="." unique_id=1304928680]
 z_index = 100
 position = Vector2(642, 312)
 emitting = false
@@ -134,18 +146,24 @@ scale_amount_min = 2.0
 scale_amount_max = 5.0
 color_ramp = SubResource("Gradient_hjpmb")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1208257861 groups=["camera"]]
 position = Vector2(643, 359)
+script = ExtResource("23_camshk")
 
-[node name="ResultBoard" type="Control" parent="."]
+[node name="AimPreview" type="Node2D" parent="."]
+z_index = 5
+script = ExtResource("43_aim")
+
+[node name="ResultBoard" type="Control" parent="." unique_id=966183915]
 z_index = 100
 layout_mode = 3
 anchors_preset = 0
-offset_right = 444.0
-offset_bottom = 444.0
-script = ExtResource("15_fqm1f")
+offset_left = -191.0
+offset_top = -83.0
+offset_right = 253.0
+offset_bottom = 361.0
 
-[node name="TextureRect3" type="TextureRect" parent="ResultBoard"]
+[node name="TextureRect3" type="TextureRect" parent="ResultBoard" unique_id=1990319042]
 layout_mode = 0
 offset_left = 681.00006
 offset_top = -95.0
@@ -155,7 +173,7 @@ rotation = 0.37292483
 scale = Vector2(1.1877286, 1.1345539)
 texture = ExtResource("17_ujfct")
 
-[node name="BoardSprite" type="TextureRect" parent="ResultBoard"]
+[node name="BoardSprite" type="TextureRect" parent="ResultBoard" unique_id=834049433]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -171,7 +189,7 @@ grow_vertical = 2
 scale = Vector2(1.054953, 1.054953)
 texture = ExtResource("15_4gy8a")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ResultBoard"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ResultBoard" unique_id=1905436615]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.624
@@ -182,55 +200,109 @@ offset_right = 482.944
 offset_bottom = 141.99997
 scale = Vector2(1.1805643, 1.4872061)
 
-[node name="LabelStatus" type="Label" parent="ResultBoard/VBoxContainer"]
+[node name="StarsRow" type="HBoxContainer" parent="ResultBoard/VBoxContainer" unique_id=1178300001]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="Star1" type="TextureRect" parent="ResultBoard/VBoxContainer/StarsRow" unique_id=1178300002]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+texture = ExtResource("42_stare")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="ResultBoard/VBoxContainer/StarsRow" unique_id=1178300003]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+texture = ExtResource("42_stare")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="ResultBoard/VBoxContainer/StarsRow" unique_id=1178300004]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+texture = ExtResource("42_stare")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LabelStatus" type="Label" parent="ResultBoard/VBoxContainer" unique_id=1178305575]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.43763727, 0.58177376, 0.20752218, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.827)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 1
+theme_override_constants/outline_size = 4
 theme_override_constants/shadow_outline_size = 1
 theme_override_fonts/font = ExtResource("18_g8mpy")
-theme_override_font_sizes/font_size = 37
+theme_override_font_sizes/font_size = 34
 text = "🤩🤩🤩 Kerennn Euyy 🤙🤙"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="LabelAccuration" type="Label" parent="ResultBoard/VBoxContainer"]
+[node name="LabelAccuration" type="Label" parent="ResultBoard/VBoxContainer" unique_id=766834763]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.42955482, 0.4295547, 0, 1)
+theme_override_colors/font_color = Color(1, 0.973, 0.906, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("18_g8mpy")
-theme_override_font_sizes/font_size = 23
-text = "sadsadsad"
+theme_override_font_sizes/font_size = 25
+text = "Akurasi: 0%"
+horizontal_alignment = 1
 
-[node name="LabelScore" type="Label" parent="ResultBoard/VBoxContainer"]
+[node name="LabelScore" type="Label" parent="ResultBoard/VBoxContainer" unique_id=80594184]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.5220287, 0.67851543, 0, 1)
+theme_override_colors/font_color = Color(1, 0.819, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("18_g8mpy")
-theme_override_font_sizes/font_size = 20
-text = "sdasdsa"
+theme_override_font_sizes/font_size = 25
+text = "Skor: 0"
+horizontal_alignment = 1
 
-[node name="LabelTime" type="Label" parent="ResultBoard/VBoxContainer"]
+[node name="LabelTime" type="Label" parent="ResultBoard/VBoxContainer" unique_id=57237433]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.25384274, 0.25384274, 0.25384274, 1)
-theme_override_colors/font_shadow_color = Color(0.47592735, 0.47592735, 0.4759273, 0)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.91, 0.851, 0.722, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("18_g8mpy")
-theme_override_font_sizes/font_size = 20
-text = "sadasdasdsa"
+theme_override_font_sizes/font_size = 22
+text = "Waktu: 0 detik"
+horizontal_alignment = 1
 
-[node name="ButtonOK" type="TextureButton" parent="ResultBoard"]
+[node name="ResultButtons" type="HBoxContainer" parent="ResultBoard" unique_id=1016124729]
 z_index = 2
 layout_mode = 0
-offset_left = 487.99997
-offset_top = 549.0
-offset_right = 1323.0
-offset_bottom = 848.0
-scale = Vector2(0.4, 0.4)
-texture_normal = ExtResource("17_ddikc")
+offset_left = 571.0
+offset_top = 560.0
+offset_right = 1091.0
+offset_bottom = 632.0
+theme = ExtResource("40_theme")
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="ButtonOkClicked" type="AudioStreamPlayer" parent="ResultBoard"]
+[node name="ButtonRetry" type="Button" parent="ResultBoard/ResultButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "🔁 MAIN LAGI"
+
+[node name="ButtonMenu" type="Button" parent="ResultBoard/ResultButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "🏠 MENU"
+
+[node name="ButtonOkClicked" type="AudioStreamPlayer" parent="ResultBoard" unique_id=842752629]
 stream = ExtResource("18_hascq")
 volume_db = 12.304
+[node name="LevelSelect" parent="." instance=ExtResource("30_lvsel")]
+
+[node name="SettingsScreen" parent="." instance=ExtResource("31_sett")]
+
+[node name="TutorialOverlay" parent="." instance=ExtResource("32_tut")]
+
+[node name="ObstacleSpawner" type="Timer" parent="."]
+wait_time = 4.0
+autostart = false

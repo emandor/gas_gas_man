@@ -1,88 +1,128 @@
-[gd_scene load_steps=5 format=3 uid="uid://g7n14vii3wnj"]
+[gd_scene load_steps=6 format=3 uid="uid://g7n14vii3wnj"]
 
 [ext_resource type="Script" uid="uid://ib80jenffhhi" path="res://scripts/hud.gd" id="1_kw0id"]
-[ext_resource type="FontFile" uid="uid://rwsfytnkrlul" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="2_atyv1"]
+[ext_resource type="FontFile" uid="uid://cjuiamc5xg8rt" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="2_atyv1"]
 [ext_resource type="Texture2D" uid="uid://bm242xmuc7rxh" path="res://assets/sprites/objects/package.png" id="2_ig75s"]
 [ext_resource type="Texture2D" uid="uid://c5jjrxcvy23lm" path="res://assets/sprites/ui/bullseye.png" id="4_4ed8p"]
+
+[sub_resource type="StyleBoxFlat" id="SB_topbar"]
+bg_color = Color(0.078, 0.039, 0.02, 0.78)
+border_width_bottom = 3
+border_color = Color(1, 0.973, 0.906, 0.15)
 
 [node name="Hud" type="CanvasLayer" groups=["hud"]]
 script = ExtResource("1_kw0id")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="PackageIcon" type="TextureRect" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_ig75s")
-expand_mode = 3
-
-[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.73333335)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = 6
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 4
-theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_atyv1")
-theme_override_font_sizes/font_size = 35
-text = "dd"
-horizontal_alignment = 1
-
-[node name="BullsEyeIcon" type="TextureRect" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("4_4ed8p")
-expand_mode = 3
-
-[node name="TargetLabel" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9106684, 0.8462393, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.09411765, 0.09411765, 0.09411765, 0.63529414)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 5
-theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_atyv1")
-theme_override_font_sizes/font_size = 38
-text = "dd"
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -100.0
-offset_top = 12.999998
-offset_right = 25.0
-offset_bottom = 62.0
+[node name="TopBar" type="Panel" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 72.0
 grow_horizontal = 2
-scale = Vector2(1.2261755, 1.1984346)
+theme_override_styles/panel = SubResource("SB_topbar")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
-layout_mode = 2
-alignment = 1
+[node name="ScoreBlock" type="HBoxContainer" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -24.0
+offset_right = 220.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme_override_constants/separation = 10
 
-[node name="TimerLabel" type="Label" parent="CenterContainer/HBoxContainer"]
+[node name="PackageIcon" type="TextureRect" parent="TopBar/ScoreBlock"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9106684, 0.8462393, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.09411765, 0.09411765, 0.09411765, 0.63529414)
+size_flags_vertical = 4
+texture = ExtResource("2_ig75s")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ScoreLabel" type="Label" parent="TopBar/ScoreBlock"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.973, 0.906, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 5
-theme_override_constants/shadow_outline_size = 3
+theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("2_atyv1")
 theme_override_font_sizes/font_size = 40
-text = " timer"
+text = "0"
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -30.0
+offset_right = 120.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.957, 0.659, 0.145, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_atyv1")
+theme_override_font_sizes/font_size = 52
+text = "00:60"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeliveryBlock" type="HBoxContainer" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -24.0
+offset_right = -20.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+theme_override_constants/separation = 10
+
+[node name="BullsEyeIcon" type="TextureRect" parent="TopBar/DeliveryBlock"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_4ed8p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TargetLabel" type="Label" parent="TopBar/DeliveryBlock"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.973, 0.906, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_atyv1")
+theme_override_font_sizes/font_size = 38
+text = "0 / 5"
+vertical_alignment = 1
+
+[node name="ComboLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 110.0
+offset_right = 250.0
+offset_bottom = 180.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.843, 0, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_atyv1")
+theme_override_font_sizes/font_size = 58
+text = "x2 COMBO!"
+horizontal_alignment = 1
+vertical_alignment = 1

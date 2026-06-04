@@ -2,11 +2,14 @@ extends Node2D
 
 @export var scroll_speed: float = 220.0
 @export var segment_width: float = 1280.0
-@export var is_scrolling: bool = true  
+@export var is_scrolling: bool = true
+
+func set_speed(v: float):
+	scroll_speed = v
 
 func _process(delta):
 	if not is_scrolling:
-		return  
+		return
 
 	for child in get_children():
 		child.position.x -= scroll_speed * delta

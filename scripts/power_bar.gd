@@ -29,4 +29,5 @@ func start_charge():
 
 func stop_charge():
 	is_charging = false
-	throw_power_ready.emit(power)
+	var effective_power = max(power, 15.0)   # floor so a quick tap still throws; was 0 (dead throws)
+	throw_power_ready.emit(effective_power)

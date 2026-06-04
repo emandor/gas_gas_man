@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://ctutorl001"]
+
+[ext_resource type="Script" uid="uid://bocqula8o5v7h" path="res://scripts/tutorial_overlay.gd" id="1_tut"]
+[ext_resource type="FontVariation" uid="uid://duifontgg0001" path="res://theme/UIFont.tres" id="2_tut"]
+
+[node name="TutorialOverlay" type="CanvasLayer"]
+layer = 15
+script = ExtResource("1_tut")
+
+[node name="BG" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.04, 0.02, 0.08, 0.88)
+mouse_filter = 0
+
+[node name="VBox" type="VBoxContainer" parent="BG"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -220.0
+offset_right = 380.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="LabelTitle" type="Label" parent="BG/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.957, 0.659, 0.145, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_tut")
+theme_override_font_sizes/font_size = 54
+text = "💡 CARA MAIN"
+horizontal_alignment = 1
+
+[node name="LabelHold" type="Label" parent="BG/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.973, 0.906, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_tut")
+theme_override_font_sizes/font_size = 30
+text = "🔋 Tahan SPACE / Tap → mengisi power"
+horizontal_alignment = 1
+
+[node name="LabelThrow" type="Label" parent="BG/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.973, 0.906, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_tut")
+theme_override_font_sizes/font_size = 30
+text = "📦 Lepas → lempar paket ke rumah!"
+horizontal_alignment = 1
+
+[node name="LabelTarget" type="Label" parent="BG/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.357, 0.682, 0.42, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_tut")
+theme_override_font_sizes/font_size = 28
+text = "🏆 Antar semua paket sebelum waktu habis"
+horizontal_alignment = 1
+
+[node name="LabelTap" type="Label" parent="BG/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.957, 0.659, 0.145, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_tut")
+theme_override_font_sizes/font_size = 34
+text = "[ Ketuk untuk mulai ]"
+horizontal_alignment = 1

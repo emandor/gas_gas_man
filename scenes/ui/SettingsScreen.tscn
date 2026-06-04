@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://csettsc001"]
+
+[ext_resource type="Script" uid="uid://cvm4iwsdenja3" path="res://scripts/settings_screen.gd" id="1_sett"]
+[ext_resource type="FontVariation" uid="uid://duifontgg0001" path="res://theme/UIFont.tres" id="2_sett"]
+[ext_resource type="Theme" uid="uid://cgamethemegg1" path="res://theme/GameTheme.tres" id="3_theme"]
+
+[node name="SettingsScreen" type="CanvasLayer"]
+layer = 20
+script = ExtResource("1_sett")
+
+[node name="BG" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.72)
+mouse_filter = 0
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -210.0
+offset_right = 280.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 28.0
+offset_right = -28.0
+offset_bottom = -28.0
+theme_override_constants/separation = 22
+
+[node name="LabelTitle" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.957, 0.659, 0.145, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_sett")
+theme_override_font_sizes/font_size = 42
+text = "⚙ PENGATURAN"
+horizontal_alignment = 1
+
+[node name="HSep1" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="RowMusic" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LabelMusic" type="Label" parent="Panel/VBox/RowMusic"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.973, 0.906, 1)
+theme_override_fonts/font = ExtResource("2_sett")
+theme_override_font_sizes/font_size = 28
+text = "🎵 Musik"
+vertical_alignment = 1
+
+[node name="MusicToggle" type="CheckButton" parent="Panel/VBox/RowMusic"]
+layout_mode = 2
+button_pressed = true
+theme_override_fonts/font = ExtResource("2_sett")
+theme_override_font_sizes/font_size = 24
+
+[node name="RowSFX" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LabelSFX" type="Label" parent="Panel/VBox/RowSFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.973, 0.906, 1)
+theme_override_fonts/font = ExtResource("2_sett")
+theme_override_font_sizes/font_size = 28
+text = "🔊 SFX"
+vertical_alignment = 1
+
+[node name="SFXToggle" type="CheckButton" parent="Panel/VBox/RowSFX"]
+layout_mode = 2
+button_pressed = true
+theme_override_fonts/font = ExtResource("2_sett")
+theme_override_font_sizes/font_size = 24
+
+[node name="HSep2" type="HSeparator" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="ButtonClose" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_sett")
+theme_override_font_sizes/font_size = 28
+text = "✕ Tutup"

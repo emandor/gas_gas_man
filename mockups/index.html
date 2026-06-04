@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gas Gas Man — UI Mockup</title>
+<style>
+/* ═══════════════════════════════════════════════
+   FONT
+═══════════════════════════════════════════════ */
+@font-face {
+  font-family: 'LuckiestGuy';
+  src: url('LuckiestGuy-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --c-orange:        #F4A825;
+  --c-orange-dark:   #C97B0A;
+  --c-orange-light:  #FFD166;
+  --c-green:         #3A7D44;
+  --c-green-light:   #5BAE6B;
+  --c-cream:         #FFF8E7;
+  --c-cream-dark:    #E8D9B8;
+  --c-brown:         #2C1810;
+  --c-brown-mid:     #5C3621;
+  --c-brown-light:   #8B5A2B;
+  --c-red:           #C0392B;
+  --c-gold:          #FFD700;
+  --c-gold-dark:     #B8860B;
+  --c-grey:          #6B7280;
+  --c-grey-light:    #9CA3AF;
+
+  --panel-bg:        rgba(44, 24, 16, 0.90);
+  --overlay-bg:      rgba(20, 10, 5, 0.88);
+  --hud-bar-bg:      rgba(20, 10, 5, 0.78);
+
+  --shadow-text-brown: 2px 2px 0 #2C1810, -1px -1px 0 #2C1810, 1px -1px 0 #2C1810, -1px 1px 0 #2C1810;
+  --shadow-text-dark:  2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  --shadow-text-gold:  1px 1px 0 #8B6900, -1px -1px 0 #8B6900;
+
+  --border-cartoon:  3px solid var(--c-brown);
+  --border-card:     2px solid var(--c-cream-dark);
+  --radius-card:     14px;
+  --radius-btn:      10px;
+  --radius-sm:       8px;
+
+  --btn-shadow: 0 5px 0 var(--c-orange-dark), 0 6px 8px rgba(0,0,0,0.4);
+  --card-shadow: 0 4px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  --panel-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+/* ═══════════════════════════════════════════════
+   SHELL
+═══════════════════════════════════════════════ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1a0f08;
+  font-family: 'LuckiestGuy', 'Arial Black', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tab nav */
+.tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 12px 0;
+  background: #0d0703;
+  width: 100%;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  font-family: 'LuckiestGuy', sans-serif;
+  font-size: 13px;
+  padding: 8px 18px;
+  border: 2px solid var(--c-brown-mid);
+  border-radius: 8px 8px 0 0;
+  background: #3d2010;
+  color: var(--c-cream-dark);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
+}
+.tab-btn:hover { background: #5c3620; color: var(--c-cream); }
+.tab-btn.active {
+  background: var(--c-orange);
+  color: var(--c-brown);
+  border-color: var(--c-orange-dark);
+}
+
+/* Canvas wrapper */
+.canvas-wrap {
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.screen {
+  display: none;
+  width: 1280px;
+  height: 720px;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--c-brown-mid);
+  box-shadow: 0 0 60px rgba(0,0,0,0.8);
+  flex-shrink: 0;
+}
+.screen.active { display: block; }
+
+/* Scale for smaller viewports */
+@media (max-width: 1340px) {
+  .canvas-wrap { overflow-x: auto; }
+}
+
+/* ═══════════════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════════════ */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'LuckiestGuy', sans-serif;
+  letter-spacing: 1px;
+  border-radius: var(--radius-btn);
+  border: var(--border-cartoon);
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(3px); }
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--c-orange-light) 0%, var(--c-orange) 50%, var(--c-orange-dark) 100%);
+  color: var(--c-brown);
+  box-shadow: var(--btn-shadow);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, #FFE17A 0%, var(--c-orange-light) 50%, var(--c-orange) 100%);
+}
+
+.btn-secondary {
+  background: linear-gradient(180deg, var(--c-green-light) 0%, var(--c-green) 100%);
+  color: var(--c-cream);
+  box-shadow: 0 5px 0 #1e5228, 0 6px 8px rgba(0,0,0,0.4);
+}
+.btn-secondary:hover { filter: brightness(1.1); }
+
+.btn-ghost {
+  background: rgba(44,24,16,0.7);
+  color: var(--c-cream);
+  border-color: var(--c-cream-dark);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+}
+
+/* Panels */
+.panel {
+  background: var(--c-cream);
+  border: var(--border-cartoon);
+  border-radius: var(--radius-card);
+  box-shadow: var(--panel-shadow);
+}
+
+.panel-dark {
+  background: var(--panel-bg);
+  border: 2px solid var(--c-cream-dark);
+  border-radius: var(--radius-card);
+  box-shadow: var(--panel-shadow);
+}
+
+/* Stars */
+.stars { display: flex; gap: 4px; justify-content: center; }
+.star { font-size: 28px; line-height: 1; }
+.star.full { color: var(--c-gold); text-shadow: 0 0 6px rgba(255,215,0,0.5), 1px 1px 0 var(--c-gold-dark); }
+.star.empty { color: var(--c-grey); text-shadow: 1px 1px 0 #374151; }
+
+/* HUD label style */
+.hud-label {
+  font-family: 'LuckiestGuy', sans-serif;
+  color: var(--c-cream);
+  text-shadow: var(--shadow-text-dark);
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 1 — HOME SCREEN
+═══════════════════════════════════════════════ */
+#screen-home {
+  background: url('sprites/ui/bg_way.jpg') center/cover no-repeat;
+}
+
+/* sky gradient overlay for depth */
+#screen-home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(135,196,235,0.15) 0%, transparent 40%, rgba(0,0,0,0.1) 100%);
+}
+
+.home-topbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px;
+  z-index: 10;
+}
+
+.icon-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 3px solid var(--c-brown);
+  background: linear-gradient(180deg, var(--c-orange-light), var(--c-orange));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--c-orange-dark), 0 4px 8px rgba(0,0,0,0.4);
+  transition: transform 0.1s;
+}
+.icon-btn:hover { transform: scale(1.08); }
+
+.home-logo {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 420px;
+  z-index: 5;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+}
+
+.home-character {
+  position: absolute;
+  bottom: 90px;
+  right: 60px;
+  height: 420px;
+  z-index: 4;
+  filter: drop-shadow(-4px 4px 8px rgba(0,0,0,0.5));
+}
+
+.home-house {
+  position: absolute;
+  bottom: 60px;
+  left: 40px;
+  height: 200px;
+  z-index: 3;
+  filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+}
+
+.home-tree-l {
+  position: absolute;
+  bottom: 40px;
+  left: 220px;
+  height: 220px;
+  z-index: 3;
+  filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.4));
+}
+
+.home-play-area {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.btn-play {
+  font-size: 46px;
+  padding: 16px 64px;
+  border-radius: 16px;
+  border: 4px solid var(--c-brown);
+  background: linear-gradient(180deg, #FFE066 0%, var(--c-orange) 45%, #C97B0A 100%);
+  color: var(--c-brown);
+  box-shadow: 0 8px 0 #8B5A00, 0 10px 20px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 0 rgba(255,255,255,0.25);
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+  letter-spacing: 2px;
+}
+.btn-play:hover {
+  background: linear-gradient(180deg, #FFF0A0 0%, #FFD166 45%, var(--c-orange) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 0 #8B5A00, 0 12px 24px rgba(0,0,0,0.5);
+}
+.btn-play:active { transform: translateY(5px); box-shadow: 0 3px 0 #8B5A00; }
+
+.home-subtitle {
+  font-size: 16px;
+  color: var(--c-cream);
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000;
+  letter-spacing: 2px;
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 2 — HUD
+═══════════════════════════════════════════════ */
+#screen-hud {
+  background: url('sprites/objects/bg_way_x.jpg') center/cover no-repeat;
+}
+
+/* House in background for context */
+#screen-hud::after {
+  content: '';
+  position: absolute;
+  bottom: 30px; right: 200px;
+  width: 280px; height: 280px;
+  background: url('sprites/objects/house.png') center/contain no-repeat;
+  opacity: 0.9;
+}
+
+.hud-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 72px;
+  background: var(--hud-bar-bg);
+  border-bottom: 3px solid rgba(255,248,231,0.15);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 20;
+  backdrop-filter: blur(4px);
+}
+
+.hud-score-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.hud-icon {
+  width: 40px; height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.7));
+}
+
+.hud-score-val {
+  font-size: 42px;
+  color: #fff;
+  text-shadow: var(--shadow-text-dark);
+  line-height: 1;
+}
+
+.hud-timer-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.hud-timer {
+  font-size: 52px;
+  color: var(--c-orange);
+  text-shadow: var(--shadow-text-brown);
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.hud-timer.urgent {
+  color: #FF4444;
+  text-shadow: 0 0 12px rgba(255,68,68,0.6), var(--shadow-text-dark);
+  animation: pulse-urgent 0.5s ease-in-out infinite alternate;
+}
+@keyframes pulse-urgent {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+
+.hud-delivery-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.hud-delivery-val {
+  font-size: 38px;
+  line-height: 1;
+  text-shadow: var(--shadow-text-dark);
+}
+.hud-delivery-val .cur { color: var(--c-orange-light); }
+.hud-delivery-val .sep { color: var(--c-cream-dark); font-size: 28px; }
+.hud-delivery-val .tot { color: var(--c-cream-dark); }
+
+/* Combo label */
+.hud-combo {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  font-size: 58px;
+  background: linear-gradient(180deg, #FFF8A0, var(--c-gold), #C97B0A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 8px rgba(255,200,0,0.6));
+  letter-spacing: 2px;
+  animation: combo-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes combo-pop {
+  from { transform: translateX(-50%) scale(0.5); opacity: 0; }
+  to   { transform: translateX(-50%) scale(1);   opacity: 1; }
+}
+
+/* Power bar */
+.hud-powerbar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 360px;
+  z-index: 20;
+}
+.powerbar-label {
+  font-size: 18px;
+  color: var(--c-cream);
+  text-shadow: var(--shadow-text-dark);
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.powerbar-track {
+  height: 28px;
+  background: rgba(0,0,0,0.5);
+  border: 3px solid var(--c-brown);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.powerbar-fill {
+  height: 100%;
+  width: 65%;
+  background: linear-gradient(90deg, var(--c-green), var(--c-orange), #FF4444);
+  border-radius: 11px;
+  transition: width 0.1s linear;
+}
+
+/* Player character placeholder */
+.hud-player {
+  position: absolute;
+  bottom: 80px;
+  left: 60px;
+  height: 280px;
+  filter: drop-shadow(-2px 2px 6px rgba(0,0,0,0.6));
+}
+
+/* HUD states tab */
+.hud-states {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.6);
+  padding: 6px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  z-index: 30;
+}
+.hud-states span { cursor: pointer; padding: 2px 8px; border-radius: 4px; }
+.hud-states span.on { background: var(--c-orange); color: var(--c-brown); }
+
+/* ═══════════════════════════════════════════════
+   SCREEN 3 — LEVEL SELECT
+═══════════════════════════════════════════════ */
+#screen-levelselect {
+  background: url('sprites/ui/bg_way.jpg') center/cover no-repeat;
+}
+
+.levelselect-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.levelselect-title {
+  font-size: 64px;
+  color: var(--c-orange);
+  text-shadow: var(--shadow-text-brown);
+  letter-spacing: 3px;
+}
+
+.levelselect-grid {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.level-card {
+  width: 196px;
+  background: linear-gradient(180deg, #3d2010 0%, #2C1810 100%);
+  border: 3px solid var(--c-brown-light);
+  border-radius: var(--radius-card);
+  padding: 20px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255,255,255,0.06);
+  transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+  position: relative;
+  overflow: hidden;
+}
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
+  border-radius: 11px 11px 0 0;
+}
+.level-card:hover:not(.locked) {
+  border-color: var(--c-orange);
+  box-shadow: 0 0 0 3px rgba(244,168,37,0.4), var(--card-shadow);
+  transform: translateY(-4px);
+}
+.level-card.current {
+  border-color: var(--c-orange);
+  box-shadow: 0 0 0 3px rgba(244,168,37,0.5), var(--card-shadow);
+}
+.level-card.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+.level-card.locked::after {
+  content: '🔒';
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px;
+  background: rgba(20,10,5,0.55);
+  border-radius: 11px;
+}
+
+.level-num {
+  font-size: 68px;
+  color: var(--c-orange);
+  text-shadow: var(--shadow-text-brown);
+  line-height: 1;
+}
+
+.level-stars { gap: 3px; }
+.level-stars .star { font-size: 24px; }
+
+.level-target {
+  font-size: 18px;
+  color: var(--c-cream);
+  text-shadow: 1px 1px 0 #000;
+  letter-spacing: 1px;
+}
+
+.levelselect-back {
+  font-size: 28px;
+  padding: 12px 48px;
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN 4 — RESULT SCREEN
+═══════════════════════════════════════════════ */
+#screen-result {
+  background: url('sprites/ui/bg_way.jpg') center/cover no-repeat;
+}
+
+.result-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-bg);
+}
+
+.result-character {
+  position: absolute;
+  bottom: 0;
+  right: 30px;
+  height: 540px;
+  z-index: 2;
+  filter: drop-shadow(-4px 4px 10px rgba(0,0,0,0.7));
+}
+
+.result-board {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 80px);
+  transform: translate(-50%, -50%);
+  width: 560px;
+  z-index: 5;
+}
+
+.result-board-bg {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.7));
+}
+
+.result-content {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  padding: 36px 48px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.result-tier {
+  font-size: 28px;
+  color: var(--c-green-light);
+  text-shadow: var(--shadow-text-dark);
+  text-align: center;
+  line-height: 1.2;
+}
+.result-tier.meh { color: var(--c-orange); }
+.result-tier.bad { color: #FF6B6B; }
+
+.result-stars {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 4px 0;
+}
+.result-stars .star { font-size: 44px; }
+
+.result-divider {
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--c-cream-dark), transparent);
+  margin: 2px 0;
+}
+
+.result-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 8px;
+}
+.result-stat-label {
+  font-size: 20px;
+  color: var(--c-cream-dark);
+  text-shadow: 1px 1px 0 #000;
+  letter-spacing: 0.5px;
+}
+.result-stat-val {
+  font-size: 24px;
+  color: var(--c-cream);
+  text-shadow: var(--shadow-text-dark);
+}
+.result-stat-val.highlight { color: var(--c-orange-light); }
+
+.result-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  width: 100%;
+}
+.result-buttons .btn {
+  flex: 1;
+  font-size: 22px;
+  padding: 12px 0;
+}
+
+/* ═══════════════════════════════════════════════
+   NOTES PANEL
+═══════════════════════════════════════════════ */
+.notes-bar {
+  width: 100%;
+  max-width: 1280px;
+  background: rgba(0,0,0,0.6);
+  border-top: 2px solid var(--c-brown-mid);
+  padding: 10px 20px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.note {
+  font-size: 12px;
+  color: rgba(255,248,231,0.6);
+  font-family: monospace;
+  line-height: 1.5;
+}
+.note strong { color: var(--c-orange); font-family: 'LuckiestGuy', sans-serif; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- ── TAB NAV ───────────────────────────────── -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('home')">🏠 Home Screen</button>
+  <button class="tab-btn" onclick="switchTab('hud')">🎮 In-Game HUD</button>
+  <button class="tab-btn" onclick="switchTab('levelselect')">📋 Level Select</button>
+  <button class="tab-btn" onclick="switchTab('result')">🏆 Result Screen</button>
+</div>
+
+<div class="canvas-wrap">
+
+<!-- ══════════════════════════════════════════
+     SCREEN 1 — HOME SCREEN
+══════════════════════════════════════════ -->
+<div id="screen-home" class="screen active">
+
+  <div class="home-topbar">
+    <div class="icon-btn" title="Audio">🔊</div>
+    <div class="icon-btn" title="Settings">⚙️</div>
+  </div>
+
+  <img class="home-logo" src="sprites/ui/logo.png" alt="Logo">
+
+  <img class="home-house"  src="sprites/objects/house_yellow.png" alt="house">
+  <img class="home-tree-l" src="sprites/objects/tree.png" alt="tree">
+  <img class="home-character" src="sprites/character/kang_gas.png" alt="Kang Gas">
+
+  <div class="home-play-area">
+    <button class="btn btn-play">⚡ GAS KANG!</button>
+    <div class="home-subtitle">Pilih Level untuk Mulai</div>
+  </div>
+
+</div><!-- /home -->
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 2 — HUD
+══════════════════════════════════════════ -->
+<div id="screen-hud" class="screen">
+
+  <!-- Top bar -->
+  <div class="hud-bar">
+    <!-- Score -->
+    <div class="hud-score-block">
+      <img class="hud-icon" src="sprites/objects/package.png" alt="pkg">
+      <div class="hud-score-val">120</div>
+    </div>
+
+    <!-- Timer -->
+    <div class="hud-timer-block">
+      <div class="hud-timer" id="hud-timer-demo">00:42</div>
+    </div>
+
+    <!-- Delivery progress -->
+    <div class="hud-delivery-block">
+      <img class="hud-icon" src="sprites/ui/bullseye.png" alt="target">
+      <div class="hud-delivery-val">
+        <span class="cur">3</span>
+        <span class="sep"> / </span>
+        <span class="tot">5</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Combo (shown when active) -->
+  <div class="hud-combo" id="hud-combo-demo">⚡ x3 COMBO!</div>
+
+  <!-- Player character for context -->
+  <img class="hud-player" src="sprites/character/char_idle.png" alt="player">
+
+  <!-- Power bar -->
+  <div class="hud-powerbar">
+    <div class="powerbar-label">POWER</div>
+    <div class="powerbar-track">
+      <div class="powerbar-fill" id="powerbar-fill"></div>
+    </div>
+  </div>
+
+  <!-- State toggle for demo -->
+  <div class="hud-states">
+    Preview state:
+    <span class="on" onclick="setHudState('normal')">Normal</span>
+    <span onclick="setHudState('combo')">Combo ×3</span>
+    <span onclick="setHudState('urgent')">Timer &lt;10s</span>
+    <span onclick="setHudState('charging')">Charging</span>
+  </div>
+
+</div><!-- /hud -->
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 3 — LEVEL SELECT
+══════════════════════════════════════════ -->
+<div id="screen-levelselect" class="screen">
+  <div class="levelselect-overlay">
+    <div class="levelselect-title">PILIH LEVEL</div>
+
+    <div class="levelselect-grid">
+
+      <!-- Level 1 — completed, 3 stars -->
+      <div class="level-card">
+        <div class="level-num">1</div>
+        <div class="stars level-stars">
+          <span class="star full">★</span>
+          <span class="star full">★</span>
+          <span class="star full">★</span>
+        </div>
+        <div class="level-target">5 📦</div>
+      </div>
+
+      <!-- Level 2 — completed, 2 stars -->
+      <div class="level-card">
+        <div class="level-num">2</div>
+        <div class="stars level-stars">
+          <span class="star full">★</span>
+          <span class="star full">★</span>
+          <span class="star empty">☆</span>
+        </div>
+        <div class="level-target">7 📦</div>
+      </div>
+
+      <!-- Level 3 — current, 0 stars -->
+      <div class="level-card current">
+        <div class="level-num">3</div>
+        <div class="stars level-stars">
+          <span class="star empty">☆</span>
+          <span class="star empty">☆</span>
+          <span class="star empty">☆</span>
+        </div>
+        <div class="level-target">10 📦</div>
+      </div>
+
+      <!-- Level 4 — locked -->
+      <div class="level-card locked">
+        <div class="level-num">4</div>
+        <div class="stars level-stars">
+          <span class="star empty">☆</span>
+          <span class="star empty">☆</span>
+          <span class="star empty">☆</span>
+        </div>
+        <div class="level-target">12 📦</div>
+      </div>
+
+      <!-- Level 5 — locked -->
+      <div class="level-card locked">
+        <div class="level-num">5</div>
+        <div class="stars level-stars">
+          <span class="star empty">☆</span>
+          <span class="star empty">☆</span>
+          <span class="star empty">☆</span>
+        </div>
+        <div class="level-target">15 📦</div>
+      </div>
+
+    </div><!-- /grid -->
+
+    <button class="btn btn-ghost levelselect-back">✕ KEMBALI</button>
+  </div>
+</div><!-- /levelselect -->
+
+
+<!-- ══════════════════════════════════════════
+     SCREEN 4 — RESULT SCREEN
+══════════════════════════════════════════ -->
+<div id="screen-result" class="screen">
+  <div class="result-overlay"></div>
+
+  <img class="result-character" src="sprites/character/kang_gas.png" alt="Kang Gas">
+
+  <div class="result-board">
+    <img class="result-board-bg" src="sprites/ui/board_result.png" alt="Board">
+    <div class="result-content">
+
+      <div class="result-tier" id="result-tier-demo">🤩🤩 Kerennn Euyy! 🤙</div>
+
+      <!-- Stars -->
+      <div class="result-stars">
+        <span class="star full" id="rs1">★</span>
+        <span class="star full" id="rs2">★</span>
+        <span class="star full" id="rs3">★</span>
+      </div>
+
+      <div class="result-divider"></div>
+
+      <!-- Stats -->
+      <div class="result-stat">
+        <span class="result-stat-label">Akurasi</span>
+        <span class="result-stat-val highlight">92%</span>
+      </div>
+      <div class="result-stat">
+        <span class="result-stat-label">Pengiriman</span>
+        <span class="result-stat-val">5 / 5</span>
+      </div>
+      <div class="result-stat">
+        <span class="result-stat-label">Waktu</span>
+        <span class="result-stat-val">45 detik</span>
+      </div>
+
+      <!-- Buttons -->
+      <div class="result-buttons">
+        <button class="btn btn-primary">🔁 MAIN LAGI</button>
+        <button class="btn btn-secondary">🏠 MENU</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- State toggle for demo -->
+  <div class="hud-states" style="z-index:10">
+    Preview:
+    <span class="on" onclick="setResultState('win3')">3★ Win</span>
+    <span onclick="setResultState('win2')">2★ Win</span>
+    <span onclick="setResultState('fail')">Gagal</span>
+  </div>
+
+</div><!-- /result -->
+
+</div><!-- /canvas-wrap -->
+
+<!-- Notes bar -->
+<div class="notes-bar">
+  <div class="note"><strong>Palette</strong><br>Orange #F4A825 · Green #3A7D44 · Cream #FFF8E7 · Brown #2C1810</div>
+  <div class="note"><strong>Font</strong><br>LuckiestGuy-Regular.ttf (all UI)</div>
+  <div class="note"><strong>Viewport</strong><br>1280×720 landscape (game native)</div>
+  <div class="note"><strong>Preserved node names</strong><br>ScoreLabel · TargetLabel · TimerLabel · ComboLabel · LabelStatus · LabelAccuration · LabelScore · LabelTime</div>
+  <div class="note"><strong>Phase</strong><br>1 of 2 — HTML mockup → approve → translate to Godot .tscn</div>
+</div>
+
+<!-- ── SCRIPTS ────────────────────────────── -->
+<script>
+/* Tab switching */
+function switchTab(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* HUD demo states */
+const combo = document.getElementById('hud-combo-demo');
+const timer = document.getElementById('hud-timer-demo');
+const pbar  = document.getElementById('powerbar-fill');
+
+function setHudState(state) {
+  document.querySelectorAll('#screen-hud .hud-states span').forEach(s => s.classList.remove('on'));
+  event.target.classList.add('on');
+
+  combo.style.display = 'none';
+  timer.classList.remove('urgent');
+  pbar.style.width = '0%';
+  pbar.parentElement.parentElement.style.display = 'none';
+
+  if (state === 'combo') {
+    combo.style.display = 'block';
+  } else if (state === 'urgent') {
+    timer.textContent = '00:07';
+    timer.classList.add('urgent');
+  } else if (state === 'charging') {
+    pbar.parentElement.parentElement.style.display = 'block';
+    let w = 0, dir = 1;
+    clearInterval(window._pbarInterval);
+    window._pbarInterval = setInterval(() => {
+      w += dir * 2;
+      if (w >= 100) dir = -1;
+      if (w <= 0)   dir = 1;
+      pbar.style.width = w + '%';
+    }, 30);
+  } else {
+    timer.textContent = '00:42';
+  }
+}
+// Init
+combo.style.display = 'none';
+pbar.parentElement.parentElement.style.display = 'none';
+
+/* Result demo states */
+const tiers = {
+  win3: { text: '🤩🤩 Kerennn Euyy! 🤙', cls: '', stars: [true,true,true] },
+  win2: { text: '😎🛵 Gas Dikit Lagi!',    cls: 'meh', stars: [true,true,false] },
+  fail: { text: '🫠🫠 Lemess Amaat...',     cls: 'bad', stars: [true,false,false] },
+};
+
+function setResultState(key) {
+  document.querySelectorAll('#screen-result .hud-states span').forEach(s => s.classList.remove('on'));
+  event.target.classList.add('on');
+
+  const t = tiers[key];
+  const el = document.getElementById('result-tier-demo');
+  el.textContent = t.text;
+  el.className = 'result-tier ' + t.cls;
+  ['rs1','rs2','rs3'].forEach((id,i) => {
+    const s = document.getElementById(id);
+    s.className = 'star ' + (t.stars[i] ? 'full' : 'empty');
+    s.textContent = t.stars[i] ? '★' : '☆';
+  });
+}
+
+/* Scale canvas for small screens */
+function scaleCanvases() {
+  const avail = window.innerWidth - 32;
+  const scale = Math.min(1, avail / 1280);
+  document.querySelectorAll('.screen').forEach(s => {
+    s.style.transform = scale < 1 ? `scale(${scale})` : '';
+    s.style.transformOrigin = 'top left';
+    s.parentElement.style.height = scale < 1 ? (720 * scale + 32) + 'px' : '';
+  });
+}
+window.addEventListener('resize', scaleCanvases);
+scaleCanvases();
+</script>
+</body>
+</html>

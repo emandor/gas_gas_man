@@ -20,13 +20,11 @@ func _on_audio_button_pressed():
 	game_control.emit("toggle_audio")
 	state_audio = !state_audio
 	_update_audio_button_icon()
-	print("Audio button pressed")  # debug log
 
 func _on_exit_button_pressed():
 	click_sound.play()
 	click_sound.seek(0.6)
 	game_control.emit("exit_game")
-	print("Exit button pressed")  # debug log
 
 
 func _update_audio_button_icon():

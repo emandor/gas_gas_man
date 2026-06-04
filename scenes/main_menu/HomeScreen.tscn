@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://u5rumopmocc1"]
+[gd_scene load_steps=13 format=3 uid="uid://u5rumopmocc1"]
 
 [ext_resource type="Script" uid="uid://bjk3ylfms6xkq" path="res://scripts/home_screen.gd" id="1_5g782"]
 [ext_resource type="Texture2D" uid="uid://bwwftlg6xs3ui" path="res://assets/sprites/ui/bg_way.jpg" id="1_leljk"]
@@ -7,98 +7,127 @@
 [ext_resource type="Texture2D" uid="uid://b0xl5acpialra" path="res://assets/sprites/ui/button_idle.png" id="3_sqeow"]
 [ext_resource type="Texture2D" uid="uid://b466hddxqoumh" path="res://assets/sprites/ui/button_hover.png" id="4_ur1ow"]
 [ext_resource type="Texture2D" uid="uid://dg6vjn0a257ix" path="res://assets/sprites/character/kang_gas.png" id="5_n0527"]
-[ext_resource type="Texture2D" uid="uid://da2md4klhe6fl" path="res://assets/sprites/ui/ui_hud_elements.png" id="6_2v0cc"]
 [ext_resource type="Texture2D" uid="uid://qqvk6o4cpp1v" path="res://assets/sprites/objects/house_yellow.png" id="8_5g782"]
 [ext_resource type="Texture2D" uid="uid://bm242xmuc7rxh" path="res://assets/sprites/objects/package.png" id="9_5aqt1"]
 [ext_resource type="AudioStream" uid="uid://b026fu0rxkob2" path="res://assets/sfx/button_click.wav" id="11_5aqt1"]
+[ext_resource type="FontFile" uid="uid://cjuiamc5xg8rt" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="12_font"]
+[ext_resource type="Theme" uid="uid://cgamethemegg1" path="res://theme/GameTheme.tres" id="13_theme"]
 
 [node name="HomeScreen" type="CanvasLayer"]
 script = ExtResource("1_5g782")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("13_theme")
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource("1_leljk")
-
-[node name="tree2" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 83.0
-offset_top = 239.00002
-offset_right = 821.0
-offset_bottom = 917.0
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_2v0cc")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="tree" type="TextureRect" parent="Control"]
 layout_mode = 0
-offset_left = -113.999985
-offset_top = 69.0
-offset_right = 1149.1991
-offset_bottom = 1229.5
-scale = Vector2(0.4, 0.4)
+offset_left = -40.0
+offset_top = 340.0
+offset_right = 660.0
+offset_bottom = 1140.0
+scale = Vector2(0.38, 0.38)
 texture = ExtResource("2_2v0cc")
 
-[node name="TextureRect2" type="TextureRect" parent="Control"]
+[node name="house" type="TextureRect" parent="Control"]
 layout_mode = 0
-offset_left = 355.0
-offset_top = -117.0
-offset_right = 855.0
-offset_bottom = 383.0
-texture = ExtResource("2_e6b7l")
-
-[node name="TextureRect3" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 360.0
-offset_top = 146.0
-offset_right = 860.0
-offset_bottom = 646.0
-texture = ExtResource("5_n0527")
-
-[node name="TextureRect4" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 929.0
-offset_top = 126.99999
-offset_right = 1953.0
-offset_bottom = 1151.0
-scale = Vector2(0.4, 0.4)
+offset_left = 150.0
+offset_top = 470.0
+offset_right = 662.0
+offset_bottom = 1023.0
+scale = Vector2(0.42, 0.42)
 texture = ExtResource("8_5g782")
 
-[node name="TextureRect5" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 414.00003
-offset_top = 428.0
-offset_right = 1438.0
-offset_bottom = 1452.0
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("9_5aqt1")
+[node name="Logo" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -710.0
+offset_right = 190.0
+offset_bottom = -330.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_e6b7l")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Button" type="Button" parent="Control"]
-visible = false
+[node name="Character" type="TextureRect" parent="Control"]
 layout_mode = 0
-offset_left = 227.0
-offset_top = 12.0
-offset_right = 824.0
-offset_bottom = 520.0
-text = "GAS KANG!"
-icon = ExtResource("6_2v0cc")
+offset_left = 800.0
+offset_top = 300.0
+offset_right = 1240.0
+offset_bottom = 740.0
+texture = ExtResource("5_n0527")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Package" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 760.0
+offset_top = 250.0
+offset_right = 910.0
+offset_bottom = 400.0
+texture = ExtResource("9_5aqt1")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="TextureButton" type="TextureButton" parent="Control"]
-layout_mode = 0
-offset_left = 388.0
-offset_top = 524.0
-offset_right = 1239.0
-offset_bottom = 797.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -213.0
+offset_top = -180.0
+offset_right = 638.0
+offset_bottom = 93.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("3_sqeow")
 texture_pressed = ExtResource("4_ur1ow")
-stretch_mode = 4
+texture_hover = ExtResource("4_ur1ow")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Subtitle" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -52.0
+offset_right = 300.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.973, 0.906, 1)
+theme_override_colors/font_outline_color = Color(0.173, 0.094, 0.063, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("12_font")
+theme_override_font_sizes/font_size = 24
+text = "Ketuk untuk Pilih Level"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="clicked" type="AudioStreamPlayer" parent="Control"]
 stream = ExtResource("11_5aqt1")
